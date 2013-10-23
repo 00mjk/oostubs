@@ -13,4 +13,9 @@
 
 #include "device/cgastr.h"
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+void CGA_Stream::flush() {
+  if (size) {
+    print(buffer, size, 0x0F);
+    size = 0;
+  }
+}

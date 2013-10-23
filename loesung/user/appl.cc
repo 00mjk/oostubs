@@ -21,6 +21,17 @@ extern CGA_Stream kout;
          
 void Application::action ()
  {
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
+  const char str[] = "hello world hello world hello world hello world hello "
+                     "world hello world hello world\n";
+  kout.setpos(10, 10);
+  for (int i = 0; i != 20; ++i) {
+    kout.print(str, sizeof(str) - 1, 0x09);
+    kout.print(str, sizeof(str) - 1, 0x0C);
+    kout.print("          ", i%10, 0x0F);
+  }
+  kout << (void*)str << ' ' << (unsigned long)str << ' ' << -42 << endl;
+  kout << bin << 42 << ' ' << oct << 42 << ' ' << dec << 42 << ' ' << hex << 42
+       << endl;
+  kout << bin << -1 << ' ' << oct << -1 << ' ' << dec << -1 << ' ' << hex << -1
+       << endl;
  }
