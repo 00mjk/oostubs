@@ -19,9 +19,28 @@
 class Stringbuffer
  {
 private:
-      Stringbuffer(const Stringbuffer &copy); // Verhindere Kopieren
+  Stringbuffer(const Stringbuffer &copy); // Verhindere Kopieren
 
-/* Hier muesst ihr selbst Code vervollstaendigen */     
- };
+protected:
+  enum {
+    BUFFER_SIZE = 1024
+  };
+  char buffer[BUFFER_SIZE];
+  int size;
+
+public:
+  Stringbuffer() : size(0) {}
+
+  // Diese Methode fügt das Zeichen c an das Ende der bereits gesammelten
+  // Zeichen an. Wenn die Pufferkapazität des Stringbuffer-Objektes nun
+  // erschöpft ist, müssen die gesammelten Zeichen durch Aufruf der Methode
+  // flush () verarbeitet werden.
+  void put(char c);
+
+  // Mit dieser Methode sollen die gesammelten Zeichen verarbeitet und so
+  // Platz für neue Zeichen geschaffen werden. Die Implementierung der
+  // Methode soll jedoch erst in den abgeleiteten Klassen erfolgen.
+  virtual void flush() = 0;
+};
 
 #endif

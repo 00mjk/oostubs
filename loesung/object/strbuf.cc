@@ -15,4 +15,12 @@
 
 #include "object/strbuf.h"
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+void Stringbuffer::put(char c) {
+  if (size == BUFFER_SIZE - 1) {
+    flush();
+    size = 0;
+  }
+
+  buffer[size] = c;
+  ++size;
+}
