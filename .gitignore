@@ -1,0 +1,11 @@
+*.o
+*.d
+
+loesung/dep
+loesung/build
+
+boot/bootsect
+boot/setup
+tools/build
+
+bochsout.txt
