@@ -29,11 +29,11 @@ void CGA_Screen::setpos(int x, int y) {
 
   unsigned short pos = x + (y * 80);
   // Cursor, higher 8 bits.
-  index.outb(15);
+  index.outb(14);
   data.outb((pos >> 8) & 0xff);
 
   // Cursor, lower 8 bits.
-  index.outb(14);
+  index.outb(15);
   data.outb(pos & 0xff);
 }
 
@@ -43,11 +43,11 @@ void CGA_Screen::getpos(int &x, int &y) {
 
   unsigned short pos = 0;
   // Cursor, higher 8 bits.
-  index.outb(15);
+  index.outb(14);
   pos |= (unsigned short)data.inb() << 8;
 
   // Cursor, lower 8 bits.
-  index.outb(14);
+  index.outb(15);
   pos |= data.inb();
 
   x = pos % 80;
@@ -81,8 +81,10 @@ void CGA_Screen::print(const char *text, int length, unsigned char attrib) {
       for (int i = 0; i != 2 * 80 * 24; ++i)
         CGA_START[i] = CGA_START[i + (2 * 80)];
       // Letzte Zeile ausnullen.
-      for (int i = 2 * 80 * 24; i != 2 * 80 * 25; ++i)
-        CGA_START[i] = 0;
+      for (int i = 2 * 80 * 24; i != 2 * 80 * 25; i += 2) {
+        CGA_START[i] = ' ';
+	CGA_START[i+1] = 0x0f;
+      }
       y = 24;
     }
   }

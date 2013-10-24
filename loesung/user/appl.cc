@@ -34,4 +34,7 @@ void Application::action ()
        << endl;
   kout << bin << -1 << ' ' << oct << -1 << ' ' << dec << -1 << ' ' << hex << -1
        << endl;
+  int x,y;
+  kout.getpos(x, y);
+  kout << x << ' ' << y;
  }

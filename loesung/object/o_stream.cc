@@ -43,6 +43,9 @@ O_Stream &O_Stream::operator<<(unsigned long number) {
   int pos = sizeof(buf);
   buf[--pos] = 0; // Puffer terminieren.
 
+  if (number == 0)
+    buf[--pos] = '0';
+
   while (number) {
     unsigned x = number % unsigned(base);
     buf[--pos] = (x < 10 ? '0' + x : 'a' + x - 10);
