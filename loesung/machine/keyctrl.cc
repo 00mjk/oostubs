@@ -318,8 +318,21 @@ void Keyboard_Controller::set_repeat_rate (int speed, int delay)
 
 void Keyboard_Controller::set_led (char led, bool on)
  {
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-          
+  int status;
+  do
+   { status = ctrl_port.inb ();      // warten, bis das letzte Kommando
+   } while ((status & inpb) != 0);   // verarbeitet wurde.
+
+  data_port.outb(kbd_cmd::set_led); // Befehl senden.
+  // Bit in leds setzen/zuruecksetzen.
+  if (on)
+    leds |= led;
+  else
+    leds &= ~led;
+
+  data_port.outb(leds); // Daten senden.
+  // Auf ACK warten und es lesen.
+  do
+   { status = data_port.inb ();
+   } while (status != kbd_reply::ack); 
  }

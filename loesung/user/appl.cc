@@ -12,6 +12,7 @@
 
 #include "user/appl.h"
 #include "device/cgastr.h"
+#include "machine/keyctrl.h"
 /* Hier muesst ihr selbst Code vervollstaendigen */         
          
 /* GLOBALE VARIABLEN */
@@ -37,4 +38,8 @@ void Application::action ()
   int x,y;
   kout.getpos(x, y);
   kout << x << ' ' << y;
+
+Keyboard_Controller kctrl;
+kctrl.set_led(1, true);
+kout << endl;
  }
