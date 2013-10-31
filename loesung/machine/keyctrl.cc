@@ -307,13 +307,25 @@ void Keyboard_Controller::reboot ()
 //                  schnell die Tastencodes aufeinander folgen soll.
 //                  Erlaubt sind Werte zwischen 0 (sehr schnell) und 31
 //                  (sehr langsam).
-
 void Keyboard_Controller::set_repeat_rate (int speed, int delay)
  {
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */          
-          
+  int status;
+  do
+   { status = ctrl_port.inb ();      // warten, bis das letzte Kommando
+   } while ((status & inpb) != 0);   // verarbeitet wurde.
+
+  data_port.outb(kbd_cmd::set_speed); // Befehl senden.
+  // Auf ACK warten und es lesen.
+  do
+   { status = data_port.inb ();
+   } while (status != kbd_reply::ack); 
+
+  data_port.outb(speed | (delay << 4)); // Daten senden.
+
+  // Auf ACK warten und es lesen.
+  do
+   { status = data_port.inb ();
+   } while (status != kbd_reply::ack); 
  }
 
 // SET_LED: setzt oder loescht die angegebene Leuchtdiode
@@ -326,6 +338,11 @@ void Keyboard_Controller::set_led (char led, bool on)
    } while ((status & inpb) != 0);   // verarbeitet wurde.
 
   data_port.outb(kbd_cmd::set_led); // Befehl senden.
+  // Auf ACK warten und es lesen.
+  do
+   { status = data_port.inb ();
+   } while (status != kbd_reply::ack); 
+
   // Bit in leds setzen/zuruecksetzen.
   if (on)
     leds |= led;
