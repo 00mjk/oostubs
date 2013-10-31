@@ -271,11 +271,13 @@ Keyboard_Controller::Keyboard_Controller () :
 Key Keyboard_Controller::key_hit ()
  {
    Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-/* Hier muesst ihr selbst Code vervollstaendigen */          
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-   return invalid;
+	bool decoded = false; // Decodierung abgeschlossen?
+	while (!decoded && (ctrl_port.inb() & 0x01)) { //Zeichen steht in Ausgabepuffer bereit
+		code = data_port.inb();
+		decoded = key_decoded();
+	}
+ 	if (decoded) return gather;
+	else return invalid;
  }
 
 // REBOOT: Fuehrt einen Neustart des Rechners durch. Ja, beim PC macht

@@ -42,4 +42,12 @@ void Application::action ()
 Keyboard_Controller kctrl;
 kctrl.set_led(1, true);
 kout << endl;
+
+	Key key;
+	for(;;) {
+		key = kctrl.key_hit();
+		if (key.valid()) {
+			kout << key.ascii() << endl;
+		}
+	}
  }
