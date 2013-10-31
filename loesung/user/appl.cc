@@ -24,17 +24,20 @@ void Application::action ()
  {
   const char str[] = "hello world hello world hello world hello world hello "
                      "world hello world hello world\n";
-  kout.setpos(10, 10);
+  kout.setpos(0, 10);
 
   kout.clear();
 
   kout.print(str, sizeof(str) - 1, 0x09);
   kout.print(str, sizeof(str) - 1, 0x0C);
-  kout.print("          ", 10, 0x0F);
-  kout << (void*)str << ' ' << (unsigned long)str << ' ' << -42 << ' ' << 0 << endl;
-  kout << bin << 42 << ' ' << oct << 42 << ' ' << dec << 42 << ' ' << hex << 42
+  kout << "Pointer: " << (void*)str << '\n';
+  kout << "Unsigned Long: " << (unsigned long)str << '\n';
+  kout << "Negativ: " << -42 << '\n';
+  kout << "Null: " << 0 << endl;
+
+  kout << "bin " << bin << 42 << " oct " << oct << 42 << " dec " << dec << 42 << " hex " << hex << 42
        << endl;
-  kout << bin << -1 << ' ' << oct << -1 << ' ' << dec << -1 << ' ' << hex << -1
+  kout << "bin " << bin << -1 << " oct " << oct << -1 << " dec " << dec << -1 << " hex " << hex << -1
        << endl;
 
 Keyboard_Controller kctrl;
