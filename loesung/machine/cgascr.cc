@@ -92,3 +92,10 @@ void CGA_Screen::print(const char *text, int length, unsigned char attrib) {
   setpos(x, y);
 }
 
+void CGA_Screen::clear() {
+	for (int i = 0; i != 2 * 80 * 25; i += 2) {
+		CGA_START[i] = ' ';
+		CGA_START[i+1] = 0x0f;
+	}
+}
+

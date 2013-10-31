@@ -57,6 +57,8 @@ public:
    // Ein Zeilenumbruch muss auch erfolgen, wann immer das Zeichen '\n' im
    // auszugebenen Text enthalten ist.
    void print(const char *text, int length, unsigned char attrib);
+
+   void clear();
  };
 
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
