@@ -10,18 +10,20 @@
 /*****************************************************************************/
 
 /* INCLUDES */
+#include "device/cgastr.h"
+#include "machine/plugbox.h"
 
 /* FUNKTIONEN */
-               
+
 extern "C" void guardian (unsigned int slot);
 
 /* GUARDIAN: Low-Level Interrupt-Behandlung. Die Funktion wird spaeter noch */
 /*           erweitert.                                                     */
 
-#include "device/cgastr.h"
+extern Plugbox plugbox;
+
 void guardian (unsigned int slot)
  {
-        CGA_Stream out;
-        out << "GUARDIAN!" << endl;
+        plugbox.report(slot).trigger();
  }
 

@@ -6,17 +6,20 @@
 #include "machine/pic.h"
 #include "machine/cpu.h"
 #include "device/panic.h"
+#include "machine/plugbox.h"
+#include "device/keyboard.h"
 
 CGA_Stream kout;
 PIC pic;
 CPU cpu;
 Panic panic;
+Plugbox plugbox;
+Keyboard keyboard;
 
 int main()
 {
 
-  //Tastaturinterrupts erlauben
-  pic.allow(PIC::keyboard);
+  //Interrupts erlauben
   cpu.enable_int();
 
   Application app;
