@@ -14,4 +14,26 @@
 /* kann mit Hilfe der Klasse CPU festgelegt werden.                          */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "pic.h"
+
+void PIC::allow (int interrupt_device) {
+        if (interrupt_device < 8) {
+                //vom ersten PIC verwaltet
+                //bit mit der Nummer interrupt_device muss genullt werden
+                master_imr.outb( master_imr.inb() - (interrupt_device + 1) );
+        } else {
+                //vom zweten PIC verwaltet
+                master_imr.outb( master_imr.inb() - (interrupt_device + 1 - 8) );
+        }
+}
+
+void PIC::forbid (int interrupt_device){
+        if (interrupt_device < 8) {
+                //vom ersten PIC verwaltet
+                //bit mit der Nummer interrupt_device muss gesetzt werden
+                master_imr.outb( master_imr.inb() | (1 << interrupt_device) );
+        } else {
+                //vom zweten PIC verwaltet
+                master_imr.outb( master_imr.inb() | (1 << interrupt_device - 8) );
+        }
+}
