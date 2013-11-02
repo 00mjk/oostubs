@@ -19,7 +19,15 @@ class Plugbox
  {
 private:
     Plugbox(const Plugbox &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+    Gate* gates[64];
+public:
+    Plugbox ();
+
+    void assign (unsigned int slot, Gate& gate);
+
+    Gate& report (unsigned int slot);
+
+    enum { timer = 32, keyboard = 33 };
  };
 
 #endif

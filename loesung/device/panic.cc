@@ -7,6 +7,12 @@
 /*---------------------------------------------------------------------------*/
 /* Standard Unterbrechungsbehandlung.                                        */
 /*****************************************************************************/
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
+
+#include "panic.h"
+#include "device/cgastr.h"
+
+extern CGA_Stream kout;
+
+void Panic::trigger() {
+	kout << endl << "PANIC! System will halt." << endl;
+}

@@ -10,4 +10,22 @@
 /* exception festlegen.                                                      */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "plugbox.h"
+#include "device/panic.h"
+
+extern Panic panic;
+
+Plugbox::Plugbox() {
+	for (int i = 0; i < 64; i++) {
+		gates[i] = &panic;
+	}
+}
+
+void Plugbox::assign (unsigned int slot, Gate& gate) {
+	gates[slot] = &gate;
+}
+
+Gate& Plugbox::report (unsigned int slot) {
+	return *gates[slot];
+}
+
