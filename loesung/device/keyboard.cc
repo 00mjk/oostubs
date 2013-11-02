@@ -23,9 +23,12 @@ Keyboard::Keyboard() {
 }
 
 void Keyboard::trigger() {
-	unsigned char character= key_hit().ascii();
+	Key key = key_hit();
+	unsigned char character= key.ascii();
 	if (character != 0) {
 		kout << ((char) character);
 		kout.flush();
+	} else if (key.ctrl() && key.alt() && key.scancode() == Key::scan::del) {
+		reboot();
 	}
 }
