@@ -97,5 +97,6 @@ void CGA_Screen::clear() {
 		CGA_START[i] = ' ';
 		CGA_START[i+1] = 0x0f;
 	}
+	setpos(0, 0);
 }
 

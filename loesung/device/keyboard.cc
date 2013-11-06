@@ -26,6 +26,7 @@ void Keyboard::trigger() {
 	Key key = key_hit();
 	unsigned char character= key.ascii();
 	if (character != 0) {
+                kout.setpos(10, 10);
 		kout << ((char) character);
 		kout.flush();
 	} else if (key.ctrl() && key.alt() && key.scancode() == Key::scan::del) {

@@ -13,12 +13,22 @@
 #include "user/appl.h"
 #include "device/cgastr.h"
 #include "machine/keyctrl.h"
+#include "machine/cpu.h"
 
 /* GLOBALE VARIABLEN */
 
 extern CGA_Stream kout;
+extern CPU cpu;
 
 void Application::action ()
  {
+
+	 for (;;) {
+		 cpu.disable_int();
+		 kout.setpos(10, 10);
+		 kout << "Hello";
+		 kout.flush();
+		 cpu.enable_int();
+	 }
 
  }

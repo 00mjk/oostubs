@@ -22,6 +22,8 @@ int main()
   //Interrupts erlauben
   cpu.enable_int();
 
+  kout.clear();
+
   Application app;
   app.action();
 
