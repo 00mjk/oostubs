@@ -101,6 +101,7 @@ public:
 
    // SET_LED: setzt oder loescht die angegebene Leuchtdiode.
    void set_led (char led, bool on);
+   int get_leds () { return leds; }
  };
 
 #endif
