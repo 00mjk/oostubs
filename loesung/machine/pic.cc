@@ -20,10 +20,12 @@ void PIC::allow (int interrupt_device) {
         if (interrupt_device < 8) {
                 //vom ersten PIC verwaltet
                 //bit mit der Nummer interrupt_device muss genullt werden
-                master_imr.outb( master_imr.inb() - (interrupt_device + 1) );
+//                master_imr.outb( master_imr.inb() - (interrupt_device + 1) );
+		master_imr.outb( master_imr.inb() & ~(1 << interrupt_device) );
         } else {
                 //vom zweten PIC verwaltet
-                master_imr.outb( master_imr.inb() - (interrupt_device + 1 - 8) );
+//                master_imr.outb( master_imr.inb() - (interrupt_device + 1 - 8) );
+		master_imr.outb( master_imr.inb() & ~(1 << (interrupt_device - 8)) );
         }
 }
 
