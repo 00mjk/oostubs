@@ -22,14 +22,20 @@ Keyboard::Keyboard() {
 	pic.allow(PIC::keyboard);
 }
 
-void Keyboard::trigger() {
+bool Keyboard::prologue() {
 	Key key = key_hit();
 	unsigned char character= key.ascii();
 	if (character != 0) {
-                kout.setpos(10, 10);
-		kout << ((char) character);
-		kout.flush();
+		this->last_key = character;
+		return true;
 	} else if (key.ctrl() && key.alt() && key.scancode() == Key::scan::del) {
 		reboot();
 	}
+	return false;
+}
+
+void Keyboard::epilogue() {
+	kout.setpos(10, 10);
+	kout << ((char) last_key);
+	kout.flush();
 }

@@ -21,7 +21,10 @@ private:
     Panic (const Panic &copy); // Verhindere Kopieren
 public:
     Panic () {}
-    void trigger();
+
+    // Einfachste Form der Unterbrechungsbehandlung: Es wird eine Fehlermeldung
+    // ausgegeben und der Prozessor angehalten.
+    bool prologue();
  };
 
 #endif

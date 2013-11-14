@@ -24,6 +24,7 @@ extern Plugbox plugbox;
 
 void guardian (unsigned int slot)
  {
-        plugbox.report(slot).trigger();
+        if (plugbox.report(slot).prologue())
+		plugbox.report(slot).epilogue();
  }
 
