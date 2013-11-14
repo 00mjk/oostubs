@@ -8,6 +8,7 @@
 #include "device/panic.h"
 #include "machine/plugbox.h"
 #include "device/keyboard.h"
+#include "guard/guard.h"
 
 CGA_Stream kout;
 PIC pic;
@@ -15,6 +16,7 @@ CPU cpu;
 Panic panic;
 Plugbox plugbox;
 Keyboard keyboard;
+Guard guard;
 
 int main()
 {

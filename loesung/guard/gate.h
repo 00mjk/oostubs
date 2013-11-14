@@ -11,7 +11,9 @@
 #ifndef __Gate_include__
 #define __Gate_include__
 
-class Gate {
+#include "object/chain.h"
+
+class Gate : public Chain {
 	bool _queued;
 
 public:

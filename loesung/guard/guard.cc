@@ -11,4 +11,41 @@
 /* auf den kritischen Abschnitt zugreifen.                                   */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "guard/guard.h"
+#include "guard/gate.h"
+#include "machine/cpu.h"
+extern CPU cpu;
+
+void Guard::leave () {
+	if (avail())
+		kout << "Fehler: leave mehrfach aufgerufen" << endl;
+
+	for (;;) {
+		cpu.disable_int();
+		Gate *g = (Gate *)_q.dequeue();
+		if (!g) {
+			cpu.enable_int();
+			break;
+		}
+		g->queued(false);
+		cpu.enable_int();
+
+		g->epilogue();
+	}
+
+	retne();
+}
+
+void Guard::relay (Gate* item) {
+	// Item schon in der Queue.
+	if (item->queued())
+		return;
+
+	if (!avail()) {
+		item->queued(true);
+		_q.enqueue(item);
+		return;
+	}
+
+	item->epilogue();
+}

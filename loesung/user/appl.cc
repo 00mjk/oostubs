@@ -15,6 +15,7 @@
 #include "machine/keyctrl.h"
 #include "machine/cpu.h"
 #include "device/keyboard.h"
+#include "guard/secure.h"
 
 /* GLOBALE VARIABLEN */
 
@@ -26,13 +27,10 @@ void Application::action ()
  {
 
 	 for (;;) {
-		 cpu.disable_int();
-		 if (keyboard.get_leds())
-			cpu.enable_int();
+		 Secure s;
 		 kout.setpos(20, 20);
 		 kout << "Hello";
 		 kout.flush();
-		 cpu.enable_int();
 	 }
 
  }

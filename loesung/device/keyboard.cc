@@ -35,7 +35,10 @@ bool Keyboard::prologue() {
 }
 
 void Keyboard::epilogue() {
+	int oldx, oldy;
+	kout.getpos(oldx, oldy);
 	kout.setpos(10, 10);
 	kout << ((char) last_key);
 	kout.flush();
+	kout.setpos(oldx, oldy);
 }

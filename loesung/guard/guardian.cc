@@ -12,6 +12,7 @@
 /* INCLUDES */
 #include "device/cgastr.h"
 #include "machine/plugbox.h"
+#include "guard/guard.h"
 
 /* FUNKTIONEN */
 
@@ -21,10 +22,11 @@ extern "C" void guardian (unsigned int slot);
 /*           erweitert.                                                     */
 
 extern Plugbox plugbox;
+extern Guard guard;
 
 void guardian (unsigned int slot)
  {
         if (plugbox.report(slot).prologue())
-		plugbox.report(slot).epilogue();
+		guard.relay(&plugbox.report(slot));
  }
 
