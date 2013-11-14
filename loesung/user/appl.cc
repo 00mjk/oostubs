@@ -25,7 +25,7 @@ void Application::action ()
 
 	 for (;;) {
 		 cpu.disable_int();
-		 kout.setpos(10, 10);
+		 kout.setpos(20, 20);
 		 kout << "Hello";
 		 kout.flush();
 		 cpu.enable_int();
