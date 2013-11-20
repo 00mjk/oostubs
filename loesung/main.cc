@@ -20,6 +20,8 @@ Guard guard;
 
 int main()
 {
+  // Keyboard-Interrupt eintragen.
+  keyboard.plugin();
 
   //Interrupts erlauben
   cpu.enable_int();

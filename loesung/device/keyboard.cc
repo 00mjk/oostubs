@@ -18,6 +18,9 @@ extern PIC pic;
 extern CGA_Stream kout;
 
 Keyboard::Keyboard() {
+}
+
+void Keyboard::plugin() {
 	plugbox.assign(Plugbox::keyboard,*this);
 	pic.allow(PIC::keyboard);
 }
