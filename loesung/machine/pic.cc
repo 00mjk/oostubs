@@ -25,7 +25,7 @@ void PIC::allow (int interrupt_device) {
         } else {
                 //vom zweten PIC verwaltet
 //                master_imr.outb( master_imr.inb() - (interrupt_device + 1 - 8) );
-		master_imr.outb( master_imr.inb() & ~(1 << (interrupt_device - 8)) );
+		slave_imr.outb( slave_imr.inb() & ~(1 << (interrupt_device - 8)) );
         }
 }
 
@@ -36,6 +36,6 @@ void PIC::forbid (int interrupt_device){
                 master_imr.outb( master_imr.inb() | (1 << interrupt_device) );
         } else {
                 //vom zweten PIC verwaltet
-                master_imr.outb( master_imr.inb() | (1 << (interrupt_device - 8)) );
+                slave_imr.outb( slave_imr.inb() | (1 << (interrupt_device - 8)) );
         }
 }
