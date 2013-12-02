@@ -22,5 +22,10 @@
 void toc_settle (struct toc* regs, void* tos, void (*kickoff)(void*),
 		 void* object)
  {
-/* Hier muesst ihr selbst Code vervollstaendigen */          
+   void **stack = tos;
+   stack[-1] = object; // 1. Parameter
+   stack[-3] = kickoff; // Ruecksprungadresse
+
+   regs->ebp = stack - 2; // Zeigt auf den letzten frame (gibt keinen)
+   regs->esp = stack - 3; // Stack top
  }

@@ -12,5 +12,14 @@
 /* Ruecksprungadresse interpretiert werden und der Rechner abstuerzen.       */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
+#include "device/cgastr.h"
+#include "thread/coroutine.h"
+
+extern CGA_Stream kout;
+
+extern "C" void kickoff (Coroutine* object) {
+  object->action();
+
+  kout << "PANIC: kickoff returned!" << endl;
+  for (;;) {}
+}

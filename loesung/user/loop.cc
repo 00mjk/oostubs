@@ -11,7 +11,28 @@
 /* naechstes laufen soll.                                                    */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
+/* INCLUDES */
+
+#include "user/loop.h"
+#include "device/cgastr.h"
+#include "machine/keyctrl.h"
+#include "machine/cpu.h"
+#include "device/keyboard.h"
+#include "guard/secure.h"
+#include "thread/scheduler.h"
+
+/* GLOBALE VARIABLEN */
+
+extern CGA_Stream kout;
+extern Scheduler scheduler;
+
+void Loop::action ()
+ {
+  for (;;) {
+    {
+      Secure s;
+      kout << i++ << endl;
+    }
+    scheduler.resume();
+  }
+ }

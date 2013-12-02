@@ -21,6 +21,25 @@
 // entsprechen.
 extern "C"
  {
-/* Hier muesst ihr selbst Code vervollstaendigen */       
+   void toc_go (struct toc* regs);
+
+   void toc_switch (struct toc* regs_now,
+                    struct toc* reg_then);
+
+   void toc_settle (struct toc* regs, void* tos, void (*kickoff)(void*),
+                    void* object);
+
+   void kickoff (void *object);
  }
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+
+Coroutine::Coroutine(void *tos) {
+  toc_settle(&regs, tos, kickoff, this);
+}
+
+void Coroutine::go() {
+  toc_go(&regs);
+}
+
+void Coroutine::resume(Coroutine &next) {
+  toc_switch(&regs, &next.regs);
+}

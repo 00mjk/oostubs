@@ -13,6 +13,20 @@
 #ifndef __loop_include__
 #define __loop_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "thread/entrant.h"
+
+class Loop : public Entrant
  
+ {
+private:
+    Loop (const Loop &copy); // Verhindere Kopieren
+
+    int i;
+
+public:
+    Loop(void *tos) : Entrant(tos), i(0) {}
+
+    void action ();
+ };
+
 #endif

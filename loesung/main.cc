@@ -9,6 +9,7 @@
 #include "machine/plugbox.h"
 #include "device/keyboard.h"
 #include "guard/guard.h"
+#include "thread/scheduler.h"
 
 CGA_Stream kout;
 PIC pic;
@@ -17,6 +18,7 @@ Panic panic;
 Plugbox plugbox;
 Keyboard keyboard;
 Guard guard;
+Scheduler scheduler;
 
 int main()
 {
@@ -28,10 +30,10 @@ int main()
 
   kout.clear();
 
-  Application app;
-  app.action();
+  static char stack_app[4096];
+  Application app(stack_app + sizeof(stack_app));
 
-	for (;;);
+  scheduler.go(app);
 
   return 0;
 }
