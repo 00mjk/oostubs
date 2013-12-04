@@ -33,11 +33,13 @@ void Application::action ()
   Loop loop2(stack_loop2 + sizeof(stack_loop2));
   scheduler.ready(loop2);
 
-  for (;;) {
+  for (int i = 0; i < 500; i++) {
     {
       Secure s;
       kout << "Hello" << endl;
     }
     scheduler.resume();
   }
+  scheduler.kill(loop1);
+  scheduler.exit();
  }
