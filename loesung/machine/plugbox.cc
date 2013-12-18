@@ -19,6 +19,7 @@ Plugbox::Plugbox() {
 	for (int i = 0; i < 64; i++) {
 		gates[i] = &panic;
 	}
+	gates[Plugbox::printer] = &lptr;
 }
 
 void Plugbox::assign (unsigned int slot, Gate& gate) {

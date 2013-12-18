@@ -14,12 +14,14 @@
 #define __Plugbox_include__
 
 #include "guard/gate.h"
+#include "device/lptr.h"
 
 class Plugbox
  {
 private:
     Plugbox(const Plugbox &copy); // Verhindere Kopieren
     Gate* gates[64];
+    LPTR lptr;
 public:
     Plugbox ();
 
@@ -27,7 +29,7 @@ public:
 
     Gate& report (unsigned int slot);
 
-    enum { timer = 32, keyboard = 33 };
+    enum { timer = 32, keyboard = 33 , printer = 39 };
  };
 
 #endif
