@@ -22,9 +22,10 @@ private:
     Loop (const Loop &copy); // Verhindere Kopieren
 
     int i;
+    int max;
 
 public:
-    Loop(void *tos) : Entrant(tos), i(0) {}
+    Loop(void *tos, int max) : Entrant(tos), i(0), max(max) {}
 
     void action ();
  };

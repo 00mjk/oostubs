@@ -22,6 +22,9 @@ Scheduler scheduler;
 
 int main()
 {
+	// Die gelegentlich auftretenden Panics werden durch den Interrupt #39 (LPTR1) ausgelöst
+	// http://ess.cs.tu-dortmund.de/Teaching/WS2013/BSB/Aufgaben/fehler.html#interrupt_7_39
+
   // Keyboard-Interrupt eintragen.
   keyboard.plugin();
 

@@ -13,6 +13,7 @@
 #include "device/cgastr.h"
 #include "machine/plugbox.h"
 #include "guard/guard.h"
+#include "device/cgastr.h"
 
 /* FUNKTIONEN */
 
@@ -23,9 +24,11 @@ extern "C" void guardian (unsigned int slot);
 
 extern Plugbox plugbox;
 extern Guard guard;
+extern CGA_Stream kout;
 
 void guardian (unsigned int slot)
  {
+	//kout << slot << endl;
         if (plugbox.report(slot).prologue())
 		guard.relay(&plugbox.report(slot));
  }

@@ -27,10 +27,10 @@ extern Scheduler scheduler;
 void Application::action ()
  {
   static char stack_loop1[4096];
-  Loop loop1(stack_loop1 + sizeof(stack_loop1));
+  Loop loop1(stack_loop1 + sizeof(stack_loop1), 10000);
   scheduler.ready(loop1);
   static char stack_loop2[4096];
-  Loop loop2(stack_loop2 + sizeof(stack_loop2));
+  Loop loop2(stack_loop2 + sizeof(stack_loop2), 100);
   scheduler.ready(loop2);
 
   for (int i = 0; i < 500; i++) {

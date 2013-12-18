@@ -32,6 +32,7 @@ void Loop::action ()
     {
       Secure s;
       kout << i++ << endl;
+      i %= max;
     }
     scheduler.resume();
   }
