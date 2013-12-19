@@ -15,12 +15,12 @@ extern CGA_Stream kout;
 
 
 void PIT::interval(int us) {
-	// Insgesamt wird quot = [19318 * us / 10000] berechnet
-	int prod = 19318 * us;
-	int quot = prod / 10000;
-	int mod = prod % 10000;
+	// Insgesamt wird quot = [1000 * us / 838] berechnet
+	int prod = 1000 * us;
+	int quot = prod / 838;
+	int mod = prod % 838;
 	// runden
-	if (mod > 5000) quot++;
+	if (mod > 419) quot++;
 	ctrl.outb(0x34);
 	// niederwertiges Byte
 	periodic.outb(quot);

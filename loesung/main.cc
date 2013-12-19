@@ -21,9 +21,9 @@ Keyboard keyboard;
 Guard guard;
 Scheduler scheduler;
 
-// Sorgt für maximale Verzögerung. Zusammen mit dem Testprolog der Watch
+// Löst etwa jede Millisekunde. Zusammen mit dem Testprolog der Watch
 // wird so etwa jede Sekunde eine Ausgabe gemacht.
-Watch watch(0);
+Watch watch(1000);
 
 int main()
 {
@@ -38,7 +38,7 @@ int main()
   //Interrupts erlauben
   cpu.enable_int();
 
-//  kout.clear();
+  kout.clear();
 
   static char stack_app[4096];
   Application app(stack_app + sizeof(stack_app));
