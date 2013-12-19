@@ -10,6 +10,7 @@
 #include "device/keyboard.h"
 #include "guard/guard.h"
 #include "thread/scheduler.h"
+#include "device/watch.h"
 
 CGA_Stream kout;
 PIC pic;
@@ -20,19 +21,24 @@ Keyboard keyboard;
 Guard guard;
 Scheduler scheduler;
 
+// Sorgt für maximale Verzögerung. Zusammen mit dem Testprolog der Watch
+// wird so etwa jede Sekunde eine Ausgabe gemacht.
+Watch watch(0);
+
 int main()
 {
 	// Die gelegentlich auftretenden Panics werden durch den Interrupt #39 (LPTR1) ausgelöst
 	// http://ess.cs.tu-dortmund.de/Teaching/WS2013/BSB/Aufgaben/fehler.html#interrupt_7_39
 	// Krücke: ein Gate namens LPTR wird an die entsprechende Stelle in der Plugbox geschaltet
 
-  // Keyboard-Interrupt eintragen.
+  // Interrupts eintragen.
   keyboard.plugin();
+  watch.windup();
 
   //Interrupts erlauben
   cpu.enable_int();
 
-  kout.clear();
+//  kout.clear();
 
   static char stack_app[4096];
   Application app(stack_app + sizeof(stack_app));

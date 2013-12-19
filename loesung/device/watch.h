@@ -19,9 +19,10 @@ class Watch : public Gate, public PIT
  {
 private:
     Watch (const Watch &copy); // Verhindere Kopieren
+    int test;
 public:
     // WATCH: Initialisiert die Uhr.
-    Watch (int us) : PIT (us)
+    Watch (int us) : PIT (us), test(0)
     {}
 
     // WINDUP: "zieht die Uhr auf". Danach laeuft sie los und loest in
