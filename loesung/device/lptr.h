@@ -25,6 +25,7 @@ public:
     // Macht darauf aufmerksam, dass ein Druckerinterrupt aufgetreten ist.
     // Da wir keinen Drucker verwenden, sind diese Interrupts ungewollt.
     bool prologue();
+    void epilogue();
  };
 
 #endif

@@ -16,7 +16,9 @@ extern CGA_Stream kout;
 
 
 bool LPTR::prologue() {
-	Secure s;
-	kout << endl << "Druckerinterrupt (#39) aufgetreten." << endl;
-	return false;
+	return true;
+}
+
+void LPTR::epilogue() {
+	kout << "Druckerinterrupt (#39) aufgetreten." << endl;
 }

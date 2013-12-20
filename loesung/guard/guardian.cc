@@ -28,7 +28,6 @@ extern CGA_Stream kout;
 
 void guardian (unsigned int slot)
  {
-	//kout << slot << endl;
         if (plugbox.report(slot).prologue())
 		guard.relay(&plugbox.report(slot));
  }
