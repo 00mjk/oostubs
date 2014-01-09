@@ -19,12 +19,12 @@
 #include "machine/cpu.h"
 #include "device/keyboard.h"
 #include "guard/secure.h"
-#include "thread/scheduler.h"
+#include "syscall/guarded_scheduler.h"
 
 /* GLOBALE VARIABLEN */
 
 extern CGA_Stream kout;
-extern Scheduler scheduler;
+extern Guarded_Scheduler scheduler;
 
 void Loop::action ()
  {
@@ -34,6 +34,9 @@ void Loop::action ()
       kout << i++ << endl;
       i %= max;
     }
-    scheduler.resume();
+    if (i > 200) {
+	    scheduler.resume();
+	    i = 0;
+    }
   }
  }

@@ -13,8 +13,6 @@
 //#include "thread/scheduler.h"
 #include "device/watch.h"
 
-#include "user/print_rep.h"
-
 CGA_Stream kout;
 PIC pic;
 CPU cpu;
@@ -45,13 +43,14 @@ int main()
 
   kout.clear();
 
-//  static char stack_app[4096];
-//  Application app(stack_app + sizeof(stack_app));
+  static char stack_app[4096];
+  Application app(stack_app + sizeof(stack_app));
 
 //  static char stack_a[4096];
 //  Print_Rep a(stack_a + sizeof(stack_a),'a');
 
-//  scheduler.go(a);
+  guard.enter();
+  scheduler.go(app);
 
   for(;;) ;
 

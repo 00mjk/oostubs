@@ -29,6 +29,6 @@ void Watch:: epilogue() {
 	// sorgt zusammen mit der initialisierung der Watch dafür,
 	// dass etwa jede Sekunde eine Ausgabe gemacht wird.
 	if (++test % 1000 == 0)
-		kout << test << endl;
-//	scheduler.resume();
+	//	kout << test << endl;
+		scheduler.Scheduler::resume();
 }

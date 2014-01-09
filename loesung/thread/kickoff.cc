@@ -14,10 +14,13 @@
 
 #include "device/cgastr.h"
 #include "thread/coroutine.h"
+#include "guard/guard.h"
 
 extern CGA_Stream kout;
+extern Guard guard;
 
 extern "C" void kickoff (Coroutine* object) {
+  guard.leave();
   object->action();
 
   kout << "PANIC: kickoff returned!" << endl;

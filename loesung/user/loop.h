@@ -13,9 +13,9 @@
 #ifndef __loop_include__
 #define __loop_include__
 
-#include "thread/entrant.h"
+#include "syscall/thread.h"
 
-class Loop : public Entrant
+class Loop : public Thread
  
  {
 private:
@@ -25,7 +25,7 @@ private:
     int max;
 
 public:
-    Loop(void *tos, int max) : Entrant(tos), i(0), max(max) {}
+    Loop(void *tos, int max) : Thread(tos), i(0), max(max) {}
 
     void action ();
  };
