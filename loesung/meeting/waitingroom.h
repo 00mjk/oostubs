@@ -16,14 +16,18 @@
 
 class Customer; // Forward declaration
 
-class Waitingroom 
- : public Queue
+class Waitingroom : public Queue
 {
 private:
     Waitingroom(const Waitingroom &copy); // Verhindere Kopieren
 public:
     Waitingroom() {}
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+
+	// Der Destruktor entfernt alle noch wartenden Prozesse von der Liste und weckt sie zudem auf.
+	virtual ~Waitingroom ();
+
+	// Mit dieser Methode kann der angegebene Prozess customer vorzeitig aus dem Wartezimmer entfernt werden.
+	virtual void remove (Customer* customer);
 };
 
 #endif

@@ -9,4 +9,27 @@
 /* von Threads (Customer) auf Ereignisse erlaubt.                            */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "organizer.h"
+#include "customer.h"
+#include "meeting/waitingroom.h"
+
+void Organizer::block (Customer& customer, Waitingroom& waitingroom) {
+  waitingroom.enqueue(&customer);
+  customer.waiting_in(&waitingroom);
+  resume();
+}
+
+void Organizer::wakeup (Customer& customer) {
+  customer.waiting_in(0);
+  ready(customer);
+}
+
+void Organizer::kill (Customer& that) {
+  Waitingroom* room = that.waiting_in();
+  if (room) {
+    room->remove(&that);
+  } else {
+    Scheduler::kill(that);
+  }
+}
+

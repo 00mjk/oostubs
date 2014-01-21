@@ -12,6 +12,7 @@
 #include "syscall/guarded_scheduler.h"
 //#include "thread/scheduler.h"
 #include "device/watch.h"
+#include "thread/organizer.h"
 
 CGA_Stream kout;
 PIC pic;
@@ -22,6 +23,7 @@ Keyboard keyboard;
 Guard guard;
 //Scheduler scheduler;
 Guarded_Scheduler scheduler;
+Organizer organizer;
 
 // Löst etwa jede Millisekunde einen Timerinterrupt aus.
 // Zusammen mit dem Testprolog der Watch
