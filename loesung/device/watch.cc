@@ -23,12 +23,12 @@ void Watch::windup() {
 	pic.allow(PIC::timer);
 }
 
-bool Watch::prologue() { return true; }
+bool Watch::prologue() {
+  // Loese alle 20ms einen Epilog aus.
+  return ++test % 20 == 0;
+}
 
-void Watch:: epilogue() {
-	// sorgt zusammen mit der initialisierung der Watch dafür,
-	// dass etwa jede Sekunde eine Ausgabe gemacht wird.
-	if (++test % 1000 == 0)
-	//	kout << test << endl;
-		scheduler.Scheduler::resume();
+void Watch::epilogue() {
+  // Wechsel den Thread.
+  scheduler.Scheduler::resume();
 }

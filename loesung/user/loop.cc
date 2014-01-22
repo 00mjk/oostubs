@@ -18,22 +18,22 @@
 #include "machine/keyctrl.h"
 #include "machine/cpu.h"
 #include "device/keyboard.h"
-#include "guard/secure.h"
 #include "syscall/guarded_scheduler.h"
+#include "syscall/guarded_semaphore.h"
 
 /* GLOBALE VARIABLEN */
 
 extern CGA_Stream kout;
 extern Guarded_Scheduler scheduler;
+extern Guarded_Semaphore sem_display;
 
 void Loop::action ()
  {
   for (;;) {
-    {
-      Secure s;
-      kout << i++ << endl;
-      i %= max;
-    }
+    sem_display.p();
+    kout << i++ << endl;
+    sem_display.v();
+    i %= max;
     if (i > 200) {
 	    scheduler.resume();
 	    i = 0;

@@ -16,13 +16,14 @@
 #include "machine/keyctrl.h"
 #include "machine/cpu.h"
 #include "device/keyboard.h"
-#include "guard/secure.h"
 #include "syscall/guarded_scheduler.h"
+#include "syscall/guarded_semaphore.h"
 
 /* GLOBALE VARIABLEN */
 
 extern CGA_Stream kout;
 extern Guarded_Scheduler scheduler;
+Guarded_Semaphore sem_display(1);
 
 void Application::action ()
  {
@@ -34,9 +35,8 @@ void Application::action ()
   //scheduler.ready(loop2);
 
   for (;;) {
-    {
-      //Secure s;
-      //kout << "Hello" << endl;
-    }
+    sem_display.p();
+    kout << "Hello" << endl;
+    sem_display.v();
   }
  }
