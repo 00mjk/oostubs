@@ -10,12 +10,13 @@
 #include "watch.h"
 #include "machine/plugbox.h"
 #include "machine/pic.h"
+#include "meeting/bellringer.h"
 #include "cgastr.h"
 #include "syscall/guarded_organizer.h"
 
+extern Bellringer bellringer;
 extern Plugbox plugbox;
 extern PIC pic;
-extern CGA_Stream kout;
 extern Guarded_Organizer organizer;
 
 void Watch::windup() {
@@ -29,6 +30,8 @@ bool Watch::prologue() {
 }
 
 void Watch::epilogue() {
+  // Glocken laeuten.
+  bellringer.check();
   // Wechsel den Thread.
   organizer.Organizer::resume();
 }

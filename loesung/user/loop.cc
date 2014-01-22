@@ -18,6 +18,7 @@
 #include "machine/keyctrl.h"
 #include "machine/cpu.h"
 #include "device/keyboard.h"
+#include "syscall/guarded_buzzer.h"
 #include "syscall/guarded_organizer.h"
 #include "syscall/guarded_semaphore.h"
 
@@ -29,11 +30,14 @@ extern Guarded_Semaphore sem_display;
 
 void Loop::action ()
  {
+  Guarded_Buzzer buzzer;
   for (;;) {
     sem_display.p();
     kout << i++ << endl;
     sem_display.v();
     i %= max;
+    buzzer.set(50);
+    buzzer.sleep();
     if (i > 200) {
 	    organizer.resume();
 	    i = 0;

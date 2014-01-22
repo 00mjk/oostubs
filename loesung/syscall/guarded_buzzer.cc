@@ -13,11 +13,6 @@
 #include "syscall/guarded_buzzer.h"
 #include "guard/secure.h"
 
-void Guarded_Buzzer::ring() {
-  Secure s;
-  Buzzer::ring();
-}
-
 void Guarded_Buzzer::set(int ms) {
   Secure s;
   Buzzer::set(ms);

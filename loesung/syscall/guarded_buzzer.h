@@ -20,7 +20,6 @@ private:
 public:
     Guarded_Buzzer() : Buzzer() {}
 
-    virtual void ring();
     void set (int ms);
     void sleep ();
 };
