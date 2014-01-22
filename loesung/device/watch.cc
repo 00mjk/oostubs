@@ -11,12 +11,12 @@
 #include "machine/plugbox.h"
 #include "machine/pic.h"
 #include "cgastr.h"
-#include "syscall/guarded_scheduler.h"
+#include "syscall/guarded_organizer.h"
 
 extern Plugbox plugbox;
 extern PIC pic;
 extern CGA_Stream kout;
-extern Guarded_Scheduler scheduler;
+extern Guarded_Organizer organizer;
 
 void Watch::windup() {
 	plugbox.assign(Plugbox::timer, *this);
@@ -30,5 +30,5 @@ bool Watch::prologue() {
 
 void Watch::epilogue() {
   // Wechsel den Thread.
-  scheduler.Scheduler::resume();
+  organizer.Organizer::resume();
 }

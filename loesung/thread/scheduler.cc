@@ -10,14 +10,25 @@
 
 #include "thread/scheduler.h"
 #include "thread/entrant.h"
+#include "machine/cpu.h"
+#include "guard/guard.h"
+
+extern CPU cpu;
+extern Guard guard;
 
 void Scheduler::ready(Entrant &that) {
   ready_list.enqueue(&that);
 }
 
 void Scheduler::schedule() {
-  Entrant *head = static_cast<Entrant *>(ready_list.dequeue());
-  Dispatcher::dispatch(*head);
+  Chain *head;
+  while (!(head = ready_list.dequeue())) {
+    // Ist das so richtig?
+    guard.leave();
+    cpu.idle();
+    guard.enter();
+  }
+  Dispatcher::dispatch(*static_cast<Entrant *>(head));
 }
 
 void Scheduler::exit() {

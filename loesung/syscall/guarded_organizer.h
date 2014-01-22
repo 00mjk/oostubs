@@ -22,21 +22,14 @@ private:
 public:
       Guarded_Organizer () {}
 
-    /* Mit dieser Methode kann sich der laufende Prozess selbst blockieren. Er
-    gibt also den Prozessor an den nächsten lauffähigen Prozess ab. Außerdem
-    vermerkt er, auf welches Ereignis (in welchem Wartezimmer) er nun wartet. */
-    void block (Thread& customer, Waitingroom& waitingroom);
-
-    /* Mit dieser Methode kann ein schlafender Prozess geweckt, also wieder auf
-    die Ready-Liste gesetzt werden. Dabei sollte auch markiert werden, dass der
-    Prozess nun auf kein Ereignis mehr wartet.*/
-    void wakeup (Thread& customer);
-
-    /* Mit dieser Methode kann ein Prozess einen anderen (that) beenden. Wenn der
-    Prozess that auf der Ready-Liste steht, kann die kill-Methode des Schedulers
-    verwendet werden. Wartet er dagegen auf ein Ereignis, so muss er von dessen
-    Liste (also aus dem Wartezimmer) heruntergenommen werden.*/
-    void kill (Thread& that);
+      // Mit dieser Methode wird der Prozess that beim Scheduler angemeldet.
+      void ready (Thread& that);
+      // Hiermit kann sich ein Prozess selbst beenden.
+      void exit ();
+      // Mit dieser Methode kann ein Prozess einen anderen (that) beenden.
+      void kill (Thread& that);
+      // Hiermit kann ein Prozesswechsel ausgelöst werden.
+      void resume ();
  };
 
 #endif

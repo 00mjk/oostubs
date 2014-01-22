@@ -11,17 +11,22 @@
 #include "syscall/guarded_organizer.h"
 #include "guard/secure.h"
 
-void Guarded_Organizer::block (Thread& customer, Waitingroom& waitingroom) {
+void Guarded_Organizer::ready (Thread& that) {
   Secure s;
-  Organizer::block(customer, waitingroom);
+  Organizer::ready(that);
 }
 
-void Guarded_Organizer::wakeup (Thread& customer) {
+void Guarded_Organizer::exit () {
   Secure s;
-  Organizer::wakeup(customer);
+  Organizer::exit();
 }
 
 void Guarded_Organizer::kill (Thread& that) {
   Secure s;
   Organizer::kill(that);
+}
+
+void Guarded_Organizer::resume () {
+  Secure s;
+  Organizer::resume();
 }

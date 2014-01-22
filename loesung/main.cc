@@ -1,7 +1,6 @@
 /* $Id: main.cc 956 2008-10-19 22:24:23Z hsc $ */
 
 #include "device/cgastr.h"
-#include "device/keyboard.h"
 #include "device/panic.h"
 #include "device/watch.h"
 #include "guard/guard.h"
@@ -9,6 +8,7 @@
 #include "machine/pic.h"
 #include "machine/plugbox.h"
 #include "meeting/bellringer.h"
+#include "syscall/guarded_keyboard.h"
 #include "syscall/guarded_organizer.h"
 #include "syscall/guarded_scheduler.h"
 #include "user/appl.h"
@@ -18,9 +18,8 @@ PIC pic;
 CPU cpu;
 Panic panic;
 Plugbox plugbox;
-Keyboard keyboard;
 Guard guard;
-Guarded_Scheduler scheduler;
+Guarded_Keyboard keyboard;
 Guarded_Organizer organizer;
 Bellringer bellringer;
 
@@ -51,7 +50,7 @@ int main()
 //  Print_Rep a(stack_a + sizeof(stack_a),'a');
 
   guard.enter();
-  scheduler.go(app);
+  organizer.go(app);
 
   for(;;) ;
 

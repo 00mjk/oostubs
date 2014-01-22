@@ -17,9 +17,8 @@ void Semaphore::p() {
   if (counter > 0) {
     --counter;
   } else {
-    Customer *customer = static_cast<Customer *>(organizer.active());
-    enqueue(customer);
-    organizer.Organizer::block(*customer, *this);
+    organizer.Organizer::block(*static_cast<Customer *>(organizer.active()),
+                               *this);
   }
 }
 

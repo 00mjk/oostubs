@@ -11,13 +11,11 @@
 #include "keyboard.h"
 #include "machine/plugbox.h"
 #include "machine/pic.h"
-#include "device/cgastr.h"
 
 extern Plugbox plugbox;
 extern PIC pic;
-extern CGA_Stream kout;
 
-Keyboard::Keyboard() {
+Keyboard::Keyboard() : read_key(true), sem_key(0) {
 }
 
 void Keyboard::plugin() {
@@ -29,7 +27,7 @@ bool Keyboard::prologue() {
 	Key key = key_hit();
 	unsigned char character= key.ascii();
 	if (character != 0) {
-		this->last_key = character;
+		this->last_key = key;
 		return true;
 	} else if (key.ctrl() && key.alt() && key.scancode() == Key::scan::del) {
 		reboot();
@@ -38,10 +36,14 @@ bool Keyboard::prologue() {
 }
 
 void Keyboard::epilogue() {
-	int oldx, oldy;
-	kout.getpos(oldx, oldy);
-	kout.setpos(10, 10);
-	kout << ((char) last_key);
-	kout.flush();
-	kout.setpos(oldx, oldy);
+  if (read_key) {
+    this->read_key = false;
+    sem_key.v();
+  }
+}
+
+Key Keyboard::getkey() {
+  sem_key.p();
+  read_key = true;
+  return last_key;
 }
