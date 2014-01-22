@@ -1,18 +1,17 @@
 /* $Id: main.cc 956 2008-10-19 22:24:23Z hsc $ */
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
 #include "device/cgastr.h"
-#include "user/appl.h"
-#include "machine/pic.h"
-#include "machine/cpu.h"
-#include "device/panic.h"
-#include "machine/plugbox.h"
 #include "device/keyboard.h"
-#include "guard/guard.h"
-#include "syscall/guarded_scheduler.h"
-//#include "thread/scheduler.h"
+#include "device/panic.h"
 #include "device/watch.h"
-#include "thread/organizer.h"
+#include "guard/guard.h"
+#include "machine/cpu.h"
+#include "machine/pic.h"
+#include "machine/plugbox.h"
+#include "meeting/bellringer.h"
+#include "syscall/guarded_organizer.h"
+#include "syscall/guarded_scheduler.h"
+#include "user/appl.h"
 
 CGA_Stream kout;
 PIC pic;
@@ -21,9 +20,9 @@ Panic panic;
 Plugbox plugbox;
 Keyboard keyboard;
 Guard guard;
-//Scheduler scheduler;
 Guarded_Scheduler scheduler;
-Organizer organizer;
+Guarded_Organizer organizer;
+Bellringer bellringer;
 
 // Löst etwa jede Millisekunde einen Timerinterrupt aus.
 // Zusammen mit dem Testprolog der Watch

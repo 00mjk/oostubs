@@ -12,4 +12,18 @@
 
 #include "syscall/guarded_buzzer.h"
 #include "guard/secure.h"
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+
+void Guarded_Buzzer::ring() {
+  Secure s;
+  Buzzer::ring();
+}
+
+void Guarded_Buzzer::set(int ms) {
+  Secure s;
+  Buzzer::set(ms);
+}
+
+void Guarded_Buzzer::sleep() {
+  Secure s;
+  Buzzer::sleep();
+}

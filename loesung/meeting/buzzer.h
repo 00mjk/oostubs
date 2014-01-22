@@ -12,14 +12,25 @@
 #ifndef __Buzzer_include__
 #define __Buzzer_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "meeting/bell.h"
+#include "meeting/waitingroom.h"
 
-class Buzzer
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+class Buzzer : public Bell, public Waitingroom
 {
 private:
     Buzzer(const Buzzer &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+
+public:
+    // Konstruktor. Der Wecker ist zunächst noch abgeschaltet.
+    Buzzer () {}
+    // Im Destruktor wird der Glöckner (Bellringer) informiert, dass er nicht mehr läuten muss. Außerdem werden alle wartenden Threads geweckt.
+    virtual ~Buzzer();
+    // Wird von Glöckner aufgerufen, wenn die Wartezeit abgelaufen ist. Weckt ggfs. schlafende Threads.
+    virtual void ring();
+    // Stellen des Weckers.
+    void set (int ms);
+    // Schlafen, bis der Wecker klingelt.
+    void sleep ();
 };
 
 #endif

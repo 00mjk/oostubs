@@ -14,17 +14,26 @@
 #ifndef __Bell_include__
 #define __Bell_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "object/chain.h"
 
-class Bell
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+class Bell : public Chain
  {
 private:
     Bell(const Bell &copy); // Verhindere Kopieren
+
+    int counter;
 public:
     Bell() {}
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
 
+    // Setzen bzw. Abfragen des Zählers.
+    void wait (int value) { counter = value; }
+    int wait () const { return counter; }
+    // Dekremementiert den Zähler.
+    void tick () { --counter; }
+    // Liefert true, wenn die Zeit abgelaufen ist.
+    bool run_down() { return counter == 0; }
+    // Wird vom Glöckner aufgerufen, wenn es an der Zeit ist.
+    virtual void ring () = 0;
 };
 
 #endif

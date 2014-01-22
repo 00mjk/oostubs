@@ -11,14 +11,18 @@
 #ifndef __Guarded_Semaphore_include__
 #define __Guarded_Semaphore_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "meeting/semaphore.h"
         
-class Guarded_Semaphore 
-/* Hier muesst ihr selbst Code vervollstaendigen */         
+class Guarded_Semaphore : public Semaphore
  {
 private:
     Guarded_Semaphore (const Guarded_Semaphore &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */          
+public:
+    Guarded_Semaphore(int c) : Semaphore(c) {}
+    void p();
+    void v();
+    void wait() { p(); }
+    void signal() { v(); }    
  };
 
 #endif

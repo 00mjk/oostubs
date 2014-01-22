@@ -11,16 +11,18 @@
 #ifndef __Guarded_Buzzer_include__
 #define __Guarded_Buzzer_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "meeting/buzzer.h"
 
-class Guarded_Buzzer
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+class Guarded_Buzzer : public Buzzer
 {
 private:
     Guarded_Buzzer(const Guarded_Buzzer &copy); // Verhindere Kopieren
 public:
-    Guarded_Buzzer() {}
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+    Guarded_Buzzer() : Buzzer() {}
+
+    virtual void ring();
+    void set (int ms);
+    void sleep ();
 };
 
 #endif

@@ -8,4 +8,20 @@
 /* Systemaufrufschnittstelle zum Organizer.                                  */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "syscall/guarded_organizer.h"
+#include "guard/secure.h"
+
+void Guarded_Organizer::block (Thread& customer, Waitingroom& waitingroom) {
+  Secure s;
+  Organizer::block(customer, waitingroom);
+}
+
+void Guarded_Organizer::wakeup (Thread& customer) {
+  Secure s;
+  Organizer::wakeup(customer);
+}
+
+void Guarded_Organizer::kill (Thread& that) {
+  Secure s;
+  Organizer::kill(that);
+}

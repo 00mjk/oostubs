@@ -13,16 +13,22 @@
 #ifndef __Bellringer_include__
 #define __Bellringer_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "object/list.h"
+#include "meeting/bell.h"
 
-class Bellringer
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+class Bellringer : public List
 {
 private:
    Bellringer(const Bellringer &copy); // Verhindere Kopieren
 public:
    Bellringer() {}
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+
+   // Prüft, ob Glocken zu läuten sind und tut es gegebenenfalls.
+   void check ();
+   // Die Glocke bell wird dem Glöckner überantwortet. Sie soll nach ticks Zeiteinheiten geläutet werden.
+   void job (Bell *bell, int ticks);
+   // Die Glocke bell soll nun doch nicht geläutet werden.
+   void cancel (Bell *bell) { remove(bell); }
 };
 
 #endif
