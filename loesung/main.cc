@@ -10,7 +10,6 @@
 #include "meeting/bellringer.h"
 #include "syscall/guarded_keyboard.h"
 #include "syscall/guarded_organizer.h"
-#include "syscall/guarded_scheduler.h"
 #include "user/appl.h"
 
 CGA_Stream kout;
