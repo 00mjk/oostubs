@@ -22,12 +22,14 @@ void Scheduler::ready(Entrant &that) {
 
 void Scheduler::schedule() {
   Chain *head;
+  guard.leave();
+  cpu.disable_int();
   while (!(head = ready_list.dequeue())) {
-    // Ist das so richtig?
-    guard.leave();
     cpu.idle();
-    guard.enter();
+    cpu.disable_int();
   }
+  cpu.enable_int();
+  guard.enter();
   Dispatcher::dispatch(*static_cast<Entrant *>(head));
 }
 
