@@ -51,9 +51,9 @@ void Bellringer::job(Bell *bell, int ticks) {
     bell->wait(ticks);
     enqueue(bell);
   } else {
-    // bell steht nicht als letztes bzw. einziges Element in der Liste und
-    // run zeigt auf den Nachfolger von bell
+    // bell steht nicht als letztes bzw. einziges Element in der Liste
     while (run) {
+      run_bell = static_cast<Bell *>(run);
       run_bell->wait(run_bell->wait() - ticks);
       run = run->next;
     }
