@@ -41,6 +41,7 @@ void Application::action ()
     Key k = keyboard.getkey();
     sem_display.p();
     kout << k.ascii();
+    kout.flush();
     sem_display.v();
   }
  }
