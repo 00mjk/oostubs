@@ -55,7 +55,7 @@ void Enemy::action ()
     sem_display.p();
     kout.show(x, y, 233, 0x0f);
     sem_display.v();
-    buzzer.set(20);
+    buzzer.set(40);
     buzzer.sleep();
   }
  }
