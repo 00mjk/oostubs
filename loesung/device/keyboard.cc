@@ -25,13 +25,11 @@ void Keyboard::plugin() {
 
 bool Keyboard::prologue() {
 	Key key = key_hit();
-	unsigned char character= key.ascii();
-	if (character != 0) {
-		this->last_key = key;
-		return true;
-	} else if (key.ctrl() && key.alt() && key.scancode() == Key::scan::del) {
+	if (key.ctrl() && key.alt() && key.scancode() == Key::scan::del) {
 		reboot();
 	}
+        this->last_key = key;
+        return true;
 	return false;
 }
 
