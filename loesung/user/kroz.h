@@ -12,8 +12,10 @@
 #define __kroz_include__
 
 #include "syscall/guarded_semaphore.h"
+#include "statusbar.h"
 
 extern int player_x, player_y;
 extern Guarded_Semaphore sem_player;
+extern Statusbar statusbar;
 
 #endif

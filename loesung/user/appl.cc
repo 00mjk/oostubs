@@ -13,6 +13,8 @@
 #include "user/appl.h"
 #include "user/loop.h"
 #include "user/enemy.h"
+#include "user/statusbar.h"
+#include "user/map.h"
 #include "device/cgastr.h"
 #include "machine/keyctrl.h"
 #include "machine/cpu.h"
@@ -30,9 +32,10 @@ Guarded_Semaphore sem_display(1);
 int player_x = 10, player_y = 10;
 Guarded_Semaphore sem_player(1);
 
+Statusbar status;
+
 void Application::action ()
  {
-  kout << "Hello" << endl;
 
   static char stack_enemy1[4096];
   Enemy enemy1(stack_enemy1 + sizeof(stack_enemy1), 70, 20);
