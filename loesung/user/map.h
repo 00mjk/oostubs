@@ -19,6 +19,8 @@ class Map {
   Map();
 
   void print();
+  char get(int x, int y);
+  bool notBlocked(int x, int y);
 };
 
 #endif

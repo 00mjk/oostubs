@@ -23,7 +23,7 @@ Map::Map() {
 void Map::print() {
   sem_display.p();
   for (int x = 0; x < 80; x++) {
-    for (int y = 0; y < 80; y++) {
+    for (int y = 0; y < 25; y++) {
       switch(typemap[x][y]) {
       case WALL:
 	kout.show(x,y, 178, 0x0f);
@@ -35,4 +35,21 @@ void Map::print() {
     }
   }
   sem_display.v();
+}
+
+char Map::get(int x, int y) {
+  if (0 <= x && x <= 79 && 0 <= y && y <= 24) {
+    return typemap[x][y];
+  }
+  else return 0;
+}
+
+
+bool Map::notBlocked(int x, int y) {
+  if (0 <= x && x <= 79 && 0 <= y && y <= 24) {
+    if (typemap[x][y] != WALL) {
+      return true;
+    }
+  }
+  else return false;
 }
