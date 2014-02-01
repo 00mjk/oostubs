@@ -8,7 +8,6 @@ extern Guarded_Semaphore sem_display;
 Statusbar::Statusbar() {
   treasure = 0;
   hits = 0;
-  print();
 }
 
 void Statusbar::print() {

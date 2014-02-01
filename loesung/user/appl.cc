@@ -32,11 +32,13 @@ Guarded_Semaphore sem_display(1);
 int player_x = 10, player_y = 10;
 Guarded_Semaphore sem_player(1);
 
+Map map;
 Statusbar status;
 
 void Application::action ()
  {
-
+   map.print();
+   status.print();
   static char stack_enemy1[4096];
   Enemy enemy1(stack_enemy1 + sizeof(stack_enemy1), 70, 20);
   organizer.ready(enemy1);
@@ -44,7 +46,7 @@ void Application::action ()
   Enemy enemy2(stack_enemy2 + sizeof(stack_enemy2), 10, 25);
   organizer.ready(enemy2);
   static char stack_enemy3[4096];
-  Enemy enemy3(stack_enemy3 + sizeof(stack_enemy3), 50, 0);
+  Enemy enemy3(stack_enemy3 + sizeof(stack_enemy3), 50, 1);
   organizer.ready(enemy3);
   //static char stack_loop2[4096];
   //Loop loop2(stack_loop2 + sizeof(stack_loop2), 100);
