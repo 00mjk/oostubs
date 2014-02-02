@@ -16,5 +16,5 @@ void Player_Handler::movement(unsigned char scancode) {
   kout.setpos(0,24);
   kout << "x = " << player_x << " y = " << player_y << " ";
   kout.flush();
-  sem_player.p();
+  sem_player.v();
 }
