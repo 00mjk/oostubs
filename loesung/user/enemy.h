@@ -12,6 +12,9 @@
 #define __enemy_include__
 
 #include "syscall/thread.h"
+#include "statusbar.h"
+
+extern Statusbar status;
 
 class Enemy : public Thread
 

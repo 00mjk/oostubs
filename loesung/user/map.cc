@@ -45,6 +45,12 @@ char Map::get(int x, int y) {
 }
 
 
+void Map::set(int x, int y, char type) {
+  if (0 <= x && x <= 79 && 0 <= y && y <= 24) {
+    typemap[x][y] = type;
+  }
+}
+
 bool Map::notBlocked(int x, int y) {
   if (0 <= x && x <= 79 && 0 <= y && y <= 24) {
     if (typemap[x][y] != WALL) {

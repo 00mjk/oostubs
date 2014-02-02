@@ -12,6 +12,7 @@
 
 #include "user/kroz.h"
 #include "user/enemy.h"
+#include "user/statusbar.h"
 #include "device/cgastr.h"
 #include "machine/keyctrl.h"
 #include "machine/cpu.h"
@@ -51,6 +52,10 @@ void Enemy::action ()
       else
         x += compare(x, player_x);
     }
+
+    if (x == player_x && y == player_y)
+      status.inc_hits();
+
     sem_player.v();
     sem_display.p();
     kout.show(x, y, 233, 0x0f);
