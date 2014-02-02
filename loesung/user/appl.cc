@@ -15,6 +15,7 @@
 #include "user/enemy.h"
 #include "user/statusbar.h"
 #include "user/map.h"
+#include "user/player_handler.h"
 #include "device/cgastr.h"
 #include "machine/keyctrl.h"
 #include "machine/cpu.h"
@@ -34,6 +35,7 @@ Guarded_Semaphore sem_player(1);
 
 Map map;
 Statusbar status;
+Player_Handler player_handler;
 
 void Application::action ()
  {
@@ -66,15 +68,6 @@ void Application::action ()
     kout.flush();
     sem_display.v();
 
-    sem_player.p();
-    if (k.scancode() == Key::scan::up)
-      --player_y;
-    else if (k.scancode() == Key::scan::down)
-      ++player_y;
-    else if (k.scancode() == Key::scan::left)
-      --player_x;
-    else if (k.scancode() == Key::scan::right)
-      ++player_x;
-    sem_player.v();
+    player_handler.movement(k.scancode());
   }
  }

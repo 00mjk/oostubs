@@ -20,5 +20,5 @@ bool LPTR::prologue() {
 }
 
 void LPTR::epilogue() {
-	kout << "Druckerinterrupt (#39) aufgetreten." << endl;
+  //kout << "Druckerinterrupt (#39) aufgetreten." << endl;
 }
