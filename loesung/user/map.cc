@@ -51,5 +51,5 @@ bool Map::notBlocked(int x, int y) {
       return true;
     }
   }
-  else return false;
+  return false;
 }
