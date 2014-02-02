@@ -13,6 +13,7 @@
 #include "user/kroz.h"
 #include "user/enemy.h"
 #include "user/statusbar.h"
+#include "user/map.h"
 #include "device/cgastr.h"
 #include "machine/keyctrl.h"
 #include "machine/cpu.h"
@@ -26,6 +27,7 @@
 extern CGA_Stream kout;
 extern Guarded_Organizer organizer;
 extern Guarded_Semaphore sem_display;
+extern Map map;
 
 static int compare(int a, int b) {
   if (a == b)
@@ -40,7 +42,22 @@ void Enemy::action ()
     sem_display.p();
     kout.show(x, y, ' ', 0x0f);
     sem_display.v();
+
+    move();
+
+    sem_display.p();
+    kout.show(x, y, 233, 0x0f);
+    sem_display.v();
+    buzzer.set(40);
+    buzzer.sleep();
+  }
+ }
+
+void Enemy::move() {
     sem_player.p();
+
+    int x_old = x, y_old = y;
+
     if ((x+y) % 2 == 0) {
       if (compare(x, player_x))
         x += compare(x, player_x);
@@ -53,14 +70,14 @@ void Enemy::action ()
         x += compare(x, player_x);
     }
 
+    if (map.blockedForEnemy(x,y)) {
+      x = x_old;
+      y = y_old;
+    }
+
     if (x == player_x && y == player_y)
       status.inc_hits();
 
     sem_player.v();
-    sem_display.p();
-    kout.show(x, y, 233, 0x0f);
-    sem_display.v();
-    buzzer.set(40);
-    buzzer.sleep();
-  }
- }
+
+}

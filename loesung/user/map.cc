@@ -16,8 +16,19 @@ Map::Map() {
     typemap[0][i] = WALL;
     typemap[79][i] = WALL;
   }
+
+  // Testkarte
   typemap[10][10] = TREASURE;
   typemap[70][10] = TREASURE;
+
+  typemap[20][10] = WALL;
+  typemap[20][11] = WALL;
+  typemap[20][12] = WALL;
+  typemap[20][13] = WALL;
+  typemap[20][14] = WALL;
+  typemap[20][15] = WALL;
+  typemap[20][16] = WALL;
+  typemap[20][17] = WALL;
 }
 
 void Map::print() {
@@ -58,4 +69,14 @@ bool Map::notBlocked(int x, int y) {
     }
   }
   return false;
+}
+
+bool Map::blockedForEnemy(int x, int y) {
+  if (0 <= x && x <= 79 && 0 <= y && y <= 24) {
+    if (typemap[x][y] != EMPTY)
+      return true;
+    else
+      return false;
+  }
+  return true;
 }

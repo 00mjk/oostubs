@@ -28,6 +28,8 @@ public:
     Enemy(void *tos, int x, int y) : Thread(tos), x(x), y(y) {}
 
     void action ();
+    
+    void move();
  };
 
 #endif

@@ -25,6 +25,7 @@ class Map {
   char get(int x, int y);
   void set(int x, int y, char type);
   bool notBlocked(int x, int y);
+  bool blockedForEnemy(int x, int y);
 };
 
 #endif
