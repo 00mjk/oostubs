@@ -45,10 +45,13 @@ void Kroz::action ()
  {
   map.print();
   status.print();
-  printReadyScreen();
 
-  for (int i = 0; i != 25; ++i)
+  sem_player.p();
+  for (int i = 0; i != 30; ++i)
 	  organizer.ready(createMonster(i));
+  sem_player.v();
+
+  printReadyScreen();
 
   for (;;) {
     sem_display.p();

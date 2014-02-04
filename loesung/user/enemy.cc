@@ -75,7 +75,7 @@ void Enemy::move() {
     sem_player.p();
 
     int x_old = x, y_old = y;
-    bool hit = false;
+    bool hit = false, wall = false;
 
     if (abs(x - player_x) < 15 && abs(y - player_y) < 15) {
       if ((x+y) % 2 == 0) {
@@ -98,6 +98,10 @@ void Enemy::move() {
       y = y_old;
     }
 
+    if (map.get(x,y) == Map::WALL_DESTRUCTIBLE) {
+      wall = true;
+    }
+
     map.set(x_old,y_old,Map::EMPTY);
     if (x == player_x && y == player_y) {
       status.inc_hits();
@@ -110,5 +114,18 @@ void Enemy::move() {
     
     if (hit) {
       organizer.exit();
+    }
+
+    if (wall) {
+      // Langsam die Wand fressen.
+      Guarded_Buzzer sleep;
+      kout.show(x_old, y_old, 147, 0x04);
+      kout.show(x, y, 240, 0x06);
+      sleep.set(50);
+      sleep.sleep();
+      kout.show(x, y, '-', 0x06);
+      sleep.set(50);
+      sleep.sleep();
+      kout.show(x_old, y_old, ' ', 0x04);
     }
 }

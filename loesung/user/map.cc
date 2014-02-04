@@ -20,8 +20,13 @@ Map::Map() : numTreasure(0), done(false) {
   }
 
   // Testkarte
-  set(12,12,TREASURE);
-  set(70,10,TREASURE);
+  for (int i = 0; i != 10; ++i) {
+    int x = r.number() % 78 + 1;
+    int y = r.number() % 23 + 1;
+
+    if (get(x, y) == EMPTY)
+      set(x, y, TREASURE);
+  }
 
   typemap[20][10] = WALL;
   typemap[20][11] = WALL;
@@ -33,9 +38,8 @@ Map::Map() : numTreasure(0), done(false) {
   typemap[20][17] = WALL;
 
   typemap[40][40] = PORTAL;
-      set(41, 41, WALL_DESTRUCTIBLE);
 
-  for (int i = 0; i != 100; ++i) {
+  for (int i = 0; i != 250; ++i) {
     int x = r.number() % 78 + 1;
     int y = r.number() % 23 + 1;
 
