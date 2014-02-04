@@ -46,9 +46,14 @@ void Enemy::action ()
     move();
 
     sem_display.p();
-    kout.show(x, y, 233, 0x04);
+    kout.show(x, y, 148, 0x04);
     sem_display.v();
-    buzzer.set(40);
+    buzzer.set(20);
+    buzzer.sleep();
+    sem_display.p();
+    kout.show(x, y, 153, 0x04);
+    sem_display.v();
+    buzzer.set(20);
     buzzer.sleep();
   }
  }

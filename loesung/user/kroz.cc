@@ -29,7 +29,7 @@ void Kroz::action ()
   static char stack_enemy1[4096];
   Enemy enemy1(stack_enemy1 + sizeof(stack_enemy1), 70, 20);
   static char stack_enemy2[4096];
-  Enemy enemy2(stack_enemy2 + sizeof(stack_enemy2), 10, 25);
+  Enemy enemy2(stack_enemy2 + sizeof(stack_enemy2), 10, 23);
   static char stack_enemy3[4096];
   Enemy enemy3(stack_enemy3 + sizeof(stack_enemy3), 50, 1);
 
