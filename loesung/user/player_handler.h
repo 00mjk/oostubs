@@ -19,11 +19,14 @@ extern CGA_Stream kout;
   den Spieler übernehmen. Kann eigentlich auch in einen Player-Prozess
   integriert werden.
  */
+
 class Player_Handler {
  private:
   
- public:
+ public:   
+  enum { UP, DOWN, LEFT, RIGHT };
   void movement(Key key);
+  void showWhip(int x, int y, int whipDirection);
 };
 
 #endif

@@ -3,6 +3,7 @@
 #include "machine/key.h"
 #include "map.h"
 #include "statusbar.h"
+#include "syscall/guarded_buzzer.h"
 
 static void slay(int x, int y) {
   if (map.get(x, y) == Map::WALL_DESTRUCTIBLE) {
@@ -26,9 +27,13 @@ void Player_Handler::movement(Key key) {
     ++player_x;
   else if (key.ascii() == 'w') {
     slay(player_x, player_y-1);
+    showWhip(player_x, player_y-1,UP);
     slay(player_x-1, player_y);
+    showWhip(player_x-1, player_y,LEFT);
     slay(player_x+1, player_y);
+    showWhip(player_x+1, player_y,RIGHT);
     slay(player_x, player_y+1);
+    showWhip(player_x, player_y+1,DOWN);
   }
 
   // Debugausgaben
@@ -48,4 +53,31 @@ void Player_Handler::movement(Key key) {
     break;
   }
   sem_player.v();
+}
+
+void Player_Handler::showWhip(int x, int y, int whipDirection) {
+  Guarded_Buzzer buzzer;
+  if (map.get(x,y) == Map::EMPTY) {
+    switch(whipDirection) {
+      case UP:
+	kout.show(x,y, '|', 0x0F);
+	kout.show(player_x, player_y, 234, 0x02);
+	break;
+      case DOWN:
+	kout.show(x,y, '|', 0x0F);
+	kout.show(player_x, player_y, 234, 0x02);
+	break;
+      case LEFT:
+	kout.show(x,y, '-', 0x0F);
+	kout.show(player_x, player_y, 234, 0x02);
+	break;
+      case RIGHT:
+	kout.show(x,y, '-', 0x0F);
+	kout.show(player_x, player_y, 234, 0x02);
+	break;
+    }
+    buzzer.set(3);
+    buzzer.sleep();
+    kout.show(x,y, ' ',0x0F);
+  }
 }
