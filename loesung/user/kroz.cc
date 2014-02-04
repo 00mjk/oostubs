@@ -28,25 +28,24 @@ void Kroz::action ()
   status.print();
   static char stack_enemy1[4096];
   Enemy enemy1(stack_enemy1 + sizeof(stack_enemy1), 70, 20);
-  organizer.ready(enemy1);
   static char stack_enemy2[4096];
   Enemy enemy2(stack_enemy2 + sizeof(stack_enemy2), 10, 25);
-  organizer.ready(enemy2);
   static char stack_enemy3[4096];
   Enemy enemy3(stack_enemy3 + sizeof(stack_enemy3), 50, 1);
+
+  printReadyScreen();
+
+  organizer.ready(enemy1);
+  organizer.ready(enemy2);
   organizer.ready(enemy3);
-
-
 
   for (;;) {
     sem_display.p();
-    kout.show(player_x, player_y, 234, 0x0f);
+    kout.show(player_x, player_y, 234, 0x02);
     sem_display.v();
 
     Key k = keyboard.getkey();
     sem_display.p();
-    if (k.ascii() != 0)
-      kout << k.ascii();
 
     kout.show(player_x, player_y, ' ', 0x0f);
     kout.flush();
@@ -55,3 +54,23 @@ void Kroz::action ()
     player_handler.movement(k.scancode());
   }
  }
+
+//Soll das Spiel erst beginnen lasssen, wenn der Spieler
+//Zeit hatte sich das Level anzusehen.
+void Kroz::printReadyScreen() {
+  sem_display.p();
+  kout.setpos(40,0);
+  kout.show(player_x, player_y, 234, 0x02);
+  kout.print("Taste 's' zum Starten druecken.",30,0x04);
+  kout.flush();
+  Key k = keyboard.getkey();
+  while (k.ascii() != 's') {
+    if(k.ascii() != 0)
+       kout << k.ascii() << endl;
+    k = keyboard.getkey();
+  }
+  kout.setpos(40,0);
+  // Meldung löschen
+  sem_display.v();
+}
+

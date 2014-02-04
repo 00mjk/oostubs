@@ -1,9 +1,11 @@
 #include "statusbar.h"
 #include "device/cgastr.h"
 #include "syscall/guarded_semaphore.h"
+#include "map.h"
 
 extern CGA_Stream kout;
 extern Guarded_Semaphore sem_display;
+extern Map map;
 
 Statusbar::Statusbar() {
   treasure = 0;
@@ -20,10 +22,20 @@ void Statusbar::print() {
 
 void Statusbar::inc_treasure() {
   treasure++;
+  if (treasure == map.getTreasure()) {
+    printPortalMessage();
+    map.setDone();
+  }
   print();
 }
 
 void Statusbar::inc_hits() {
   hits++;
   print();
+}
+
+void Statusbar::printPortalMessage() {
+  kout.setpos(40,0);
+  kout.print("Auf zum Portal!",14,0x04);
+  kout.flush();
 }

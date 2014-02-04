@@ -33,7 +33,9 @@ class Kroz : public Thread {
   Kroz(void *tos) : Thread(tos) {}
 
   void action ();
-  
+
+  void printReadyScreen();
+
 };
 
 #endif

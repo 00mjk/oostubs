@@ -14,18 +14,23 @@ class Map {
  private:
 
   char typemap[80][25];
+  int numTreasure;
+  // wird gesetzt sobald alle Schätze gerafft sind
+  bool done;
 
  public:
  
   Map();
 
-  enum type { EMPTY, TREASURE, WALL };
+  enum type { EMPTY, TREASURE, WALL, PORTAL };
 
   void print();
   char get(int x, int y);
   void set(int x, int y, char type);
   bool notBlocked(int x, int y);
   bool blockedForEnemy(int x, int y);
+  int getTreasure();
+  void setDone() { done = true; }
 };
 
 #endif

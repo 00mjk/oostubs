@@ -6,7 +6,7 @@
 extern CGA_Stream kout;
 extern Guarded_Semaphore sem_display;
 
-Map::Map() {
+Map::Map() : numTreasure(0), done(false) {
   // den äußeren Rand und die Statusleiste mit Wänden schützen
   for (int i = 0; i < 80; i++) {
     typemap[i][0] = WALL;
@@ -18,8 +18,8 @@ Map::Map() {
   }
 
   // Testkarte
-  typemap[10][10] = TREASURE;
-  typemap[70][10] = TREASURE;
+  set(12,12,TREASURE);
+  set(70,10,TREASURE);
 
   typemap[20][10] = WALL;
   typemap[20][11] = WALL;
@@ -29,6 +29,8 @@ Map::Map() {
   typemap[20][15] = WALL;
   typemap[20][16] = WALL;
   typemap[20][17] = WALL;
+
+  typemap[40][40] = PORTAL;
 }
 
 void Map::print() {
@@ -42,6 +44,8 @@ void Map::print() {
       case TREASURE:
 	kout.show(x,y, 48, 0x0E);
 	break;
+      case PORTAL:
+	kout.show(x,y, 79, 0x01);
       }
     }
   }
@@ -58,12 +62,20 @@ char Map::get(int x, int y) {
 
 void Map::set(int x, int y, char type) {
   if (0 <= x && x <= 79 && 0 <= y && y <= 24) {
+    if (type == TREASURE)
+      numTreasure++;
     typemap[x][y] = type;
   }
 }
 
 bool Map::notBlocked(int x, int y) {
   if (0 <= x && x <= 79 && 0 <= y && y <= 24) {
+    if (typemap[x][y] == PORTAL) {
+      if (done)
+	return true;
+      else
+	return false;
+    }
     if (typemap[x][y] != WALL) {
       return true;
     }
@@ -79,4 +91,8 @@ bool Map::blockedForEnemy(int x, int y) {
       return false;
   }
   return true;
+}
+
+int Map::getTreasure() {
+  return numTreasure;
 }

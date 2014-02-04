@@ -21,6 +21,7 @@ class Statusbar {
   void print();
   void inc_treasure();
   void inc_hits();
+  void printPortalMessage();
 };
 
 

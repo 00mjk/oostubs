@@ -28,6 +28,10 @@ void Player_Handler::movement(unsigned char scancode) {
     status.inc_treasure();
     map.set(player_x,player_y,Map::EMPTY);
     break;
+  case Map::PORTAL:
+    // Partie beenden
+    
+    break;
   }
   sem_player.v();
 }
