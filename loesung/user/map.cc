@@ -35,7 +35,7 @@ Map::Map() : numTreasure(0), done(false) {
   typemap[40][40] = PORTAL;
       set(41, 41, WALL_DESTRUCTIBLE);
 
-  for (int i = 0; i != 50; ++i) {
+  for (int i = 0; i != 100; ++i) {
     int x = r.number() % 78 + 1;
     int y = r.number() % 23 + 1;
 

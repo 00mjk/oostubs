@@ -23,6 +23,8 @@
 #include "syscall/guarded_semaphore.h"
 #include "library/random.h"
 
+#define abs(x) ((x) < 0 ? (-(x)) : (x))
+
 /* GLOBALE VARIABLEN */
 
 extern CGA_Stream kout;
@@ -75,16 +77,18 @@ void Enemy::move() {
     int x_old = x, y_old = y;
     bool hit = false;
 
-    if ((x+y) % 2 == 0) {
-      if (compare(x, player_x))
-        x += compare(x, player_x);
-      else
-        y += compare(y, player_y);
-    } else {
-      if (compare(y, player_y))
-        y += compare(y, player_y);
-      else
-        x += compare(x, player_x);
+    if (abs(x - player_x) < 15 && abs(y - player_y) < 15) {
+      if ((x+y) % 2 == 0) {
+        if (compare(x, player_x))
+          x += compare(x, player_x);
+        else
+          y += compare(y, player_y);
+      } else {
+        if (compare(y, player_y))
+          y += compare(y, player_y);
+        else
+          x += compare(x, player_x);
+      }
     }
 
     if (map.blockedForEnemy(x,y)) {

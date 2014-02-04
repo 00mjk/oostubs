@@ -11,6 +11,7 @@
 #include "syscall/guarded_semaphore.h"
 #include "library/random.h"
 #include "machine/io_port.h"
+#include <new>
 
 extern CGA_Stream kout;
 extern Guarded_Organizer organizer;
@@ -34,28 +35,20 @@ Player_Handler player_handler;
 Map map;
 Statusbar status;
 
+static char monsterbuffer[50][4096];
+Enemy &createMonster(int i) {
+  Enemy *m = new (monsterbuffer[i]) Enemy(monsterbuffer[i] + 4096, r.number() % 78 + 1, r.number() % 23 + 1);
+  return *m;
+}
+
 void Kroz::action ()
  {
   map.print();
   status.print();
-  static char stack_enemy1[4096];
-  Enemy enemy1(stack_enemy1 + sizeof(stack_enemy1), r.number() % 78 + 1, r.number() % 23 + 1);
-  static char stack_enemy2[4096];
-  Enemy enemy2(stack_enemy2 + sizeof(stack_enemy2), r.number() % 78 + 1, r.number() % 23 + 1);
-  static char stack_enemy3[4096];
-  Enemy enemy3(stack_enemy3 + sizeof(stack_enemy3), r.number() % 78 + 1, r.number() % 23 + 1);
-  static char stack_enemy4[4096];
-  Enemy enemy4(stack_enemy4 + sizeof(stack_enemy4), r.number() % 78 + 1, r.number() % 23 + 1);
-  static char stack_enemy5[4096];
-  Enemy enemy5(stack_enemy5 + sizeof(stack_enemy5), r.number() % 78 + 1, r.number() % 23 + 1);
-
   printReadyScreen();
 
-  organizer.ready(enemy1);
-  organizer.ready(enemy2);
-  organizer.ready(enemy3);
-  organizer.ready(enemy4);
-  organizer.ready(enemy5);
+  for (int i = 0; i != 25; ++i)
+	  organizer.ready(createMonster(i));
 
   for (;;) {
     sem_display.p();
