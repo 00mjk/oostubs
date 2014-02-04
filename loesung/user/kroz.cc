@@ -69,8 +69,11 @@ void Kroz::printReadyScreen() {
        kout << k.ascii() << endl;
     k = keyboard.getkey();
   }
-  kout.setpos(40,0);
-  // Meldung löschen
+  for (int x = 40; x < 70; x++) {
+    kout.show(x,0, 178, 0x0f);
+  }
+
+  
   sem_display.v();
 }
 
