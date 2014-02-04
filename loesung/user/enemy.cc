@@ -21,6 +21,7 @@
 #include "syscall/guarded_buzzer.h"
 #include "syscall/guarded_organizer.h"
 #include "syscall/guarded_semaphore.h"
+#include "library/random.h"
 
 /* GLOBALE VARIABLEN */
 
@@ -28,11 +29,16 @@ extern CGA_Stream kout;
 extern Guarded_Organizer organizer;
 extern Guarded_Semaphore sem_display;
 extern Map map;
+extern Random r;
 
 static int compare(int a, int b) {
   if (a == b)
     return 0;
   return a > b ? -1 : 1;
+}
+
+static int sleeptime() {
+  return 20 - (r.number() % 20) - 5;
 }
 
 Enemy::Enemy(void *tos, int x, int y) : Thread(tos), x(x), y(y) {
@@ -53,12 +59,12 @@ void Enemy::action ()
     sem_display.p();
     kout.show(x, y, 148, 0x04);
     sem_display.v();
-    buzzer.set(20);
+    buzzer.set(sleeptime());
     buzzer.sleep();
     sem_display.p();
     kout.show(x, y, 153, 0x04);
     sem_display.v();
-    buzzer.set(20);
+    buzzer.set(sleeptime());
     buzzer.sleep();
   }
  }
