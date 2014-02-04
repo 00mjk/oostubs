@@ -36,6 +36,15 @@ class Kroz : public Thread {
 
   void printReadyScreen();
 
+  void printWelcomeScreen();
+
+  void printInstructionsScreen();
+
+  void printVictoryScreen();
+
+  void transform(char *text, char c1, char c2, int dim);
+
+
 };
 
 #endif

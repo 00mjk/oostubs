@@ -9,9 +9,11 @@
 #include "syscall/guarded_keyboard.h"
 #include "syscall/guarded_organizer.h"
 #include "syscall/guarded_semaphore.h"
+#include "syscall/guarded_buzzer.h"
 #include "library/random.h"
 #include "machine/io_port.h"
 #include <new>
+#include "screen.h"
 
 extern CGA_Stream kout;
 extern Guarded_Organizer organizer;
@@ -43,6 +45,7 @@ Enemy &createMonster(int i) {
 
 void Kroz::action ()
  {
+   printWelcomeScreen();
   map.print();
   status.print();
 
@@ -90,7 +93,40 @@ void Kroz::printReadyScreen() {
     kout.show(x,0, 178, 0x0f);
   }
 
-  
   sem_display.v();
 }
 
+void Kroz::printWelcomeScreen() {
+  for (int y = 0; y < 12; y++)
+    transform(title[y], 219, 176, 68);
+  for (int y = 0; y < 12; y++) {
+    kout.setpos(6,y+1);
+    kout.print(title[y],68,0x0F);
+  }
+  for (int y = 0; y < 5; y++)
+    transform(subtitle[y], 177, 176, 62);
+  for (int y = 0; y < 5; y++) {
+    kout.setpos(9,y+16);
+    kout.print(subtitle[y],62,0x0F);
+  }
+  Guarded_Buzzer buzzer;
+  buzzer.set(200);
+  buzzer.sleep();
+}
+
+void Kroz::printInstructionsScreen() {
+  
+}
+
+void Kroz::printVictoryScreen() {
+
+}
+
+void Kroz::transform(char *text, char c1, char c2, int dim) {
+  for (int i = 0; i < dim; i++) {
+    if (text[i] == '1')
+      text[i] = c1;
+    else if (text[i] == '0')
+      text[i] = c2;
+  }
+}
