@@ -10,7 +10,8 @@
 #include "meeting/bellringer.h"
 #include "syscall/guarded_keyboard.h"
 #include "syscall/guarded_organizer.h"
-#include "user/appl.h"
+#include "user/kroz.h"
+
 
 #include "object/chain.h"
 #include "meeting/bell.h"
@@ -68,10 +69,10 @@ int main()
   kout.clear();
 
   static char stack_app[4096];
-  Application app(stack_app + sizeof(stack_app));
+  Kroz kroz(stack_app + sizeof(stack_app));
 
   guard.enter();
-  organizer.go(app);
+  organizer.go(kroz);
 
   for(;;) ;
 

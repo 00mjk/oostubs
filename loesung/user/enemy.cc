@@ -57,6 +57,7 @@ void Enemy::move() {
     sem_player.p();
 
     int x_old = x, y_old = y;
+    bool hit = false;
 
     if ((x+y) % 2 == 0) {
       if (compare(x, player_x))
@@ -75,9 +76,14 @@ void Enemy::move() {
       y = y_old;
     }
 
-    if (x == player_x && y == player_y)
+    if (x == player_x && y == player_y) {
       status.inc_hits();
+      hit = true;
+    }
 
     sem_player.v();
-
+    
+    if (hit) {
+      organizer.exit();
+    }
 }
