@@ -65,7 +65,10 @@ void Kroz::action ()
     Key k = keyboard.getkey();
     sem_display.p();
 
-    kout.show(player_x, player_y, ' ', 0x0f);
+    if (map.get(player_x,player_y) == Map::MONSTER)
+      kout.show(player_x,player_y, 148,0x04);
+    else
+      kout.show(player_x, player_y, ' ', 0x0f);
     kout.flush();
     sem_display.v();
 
