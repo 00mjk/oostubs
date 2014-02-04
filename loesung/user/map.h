@@ -22,7 +22,7 @@ class Map {
  
   Map();
 
-  enum type { EMPTY, TREASURE, WALL, PORTAL, MONSTER };
+  enum type { EMPTY, TREASURE, WALL, PORTAL, MONSTER, WALL_DESTRUCTIBLE };
 
   void print();
   char get(int x, int y);

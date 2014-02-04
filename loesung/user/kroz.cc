@@ -18,12 +18,6 @@ extern Guarded_Keyboard keyboard;
 
 Guarded_Semaphore sem_display(1);
 
-int player_x = 10, player_y = 10;
-Guarded_Semaphore sem_player(1);
-Player_Handler player_handler;
-Map map;
-Statusbar status;
-
 // Sekunden von der CMOS-Uhr holen.
 static int getRTC() {
   IO_Port address(0x70);
@@ -33,6 +27,12 @@ static int getRTC() {
 }
 
 Random r(getRTC());
+
+int player_x = 10, player_y = 10;
+Guarded_Semaphore sem_player(1);
+Player_Handler player_handler;
+Map map;
+Statusbar status;
 
 void Kroz::action ()
  {
@@ -72,7 +72,7 @@ void Kroz::action ()
     kout.flush();
     sem_display.v();
 
-    player_handler.movement(k.scancode());
+    player_handler.movement(k);
   }
  }
 

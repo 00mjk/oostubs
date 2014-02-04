@@ -2,9 +2,11 @@
 
 #include "device/cgastr.h"
 #include "syscall/guarded_semaphore.h"
+#include "library/random.h"
 
 extern CGA_Stream kout;
 extern Guarded_Semaphore sem_display;
+extern Random r;
 
 Map::Map() : numTreasure(0), done(false) {
   // den äußeren Rand und die Statusleiste mit Wänden schützen
@@ -31,6 +33,15 @@ Map::Map() : numTreasure(0), done(false) {
   typemap[20][17] = WALL;
 
   typemap[40][40] = PORTAL;
+      set(41, 41, WALL_DESTRUCTIBLE);
+
+  for (int i = 0; i != 50; ++i) {
+    int x = r.number() % 78 + 1;
+    int y = r.number() % 23 + 1;
+
+    if (get(x, y) == EMPTY)
+      set(x, y, WALL_DESTRUCTIBLE);
+  }
 }
 
 void Map::print() {
@@ -46,6 +57,10 @@ void Map::print() {
 	break;
       case PORTAL:
 	kout.show(x,y, 79, 0x01);
+	break;
+      case WALL_DESTRUCTIBLE:
+	kout.show(x,y, 176, 0x06);
+	break;
       }
     }
   }
@@ -76,7 +91,7 @@ bool Map::notBlocked(int x, int y) {
       else
 	return false;
     }
-    if (typemap[x][y] != WALL) {
+    if (typemap[x][y] != WALL && typemap[x][y] != WALL_DESTRUCTIBLE) {
       return true;
     }
   }

@@ -23,7 +23,7 @@ class Player_Handler {
  private:
   
  public:
-  void movement(unsigned char scancode);
+  void movement(Key key);
 };
 
 #endif
