@@ -35,6 +35,11 @@ static int compare(int a, int b) {
   return a > b ? -1 : 1;
 }
 
+Enemy::Enemy(void *tos, int x, int y) : Thread(tos), x(x), y(y) {
+  kout.show(x, y, 233, 0x04);
+  map.set(x,y,Map::MONSTER);
+}
+
 void Enemy::action ()
  {
   Guarded_Buzzer buzzer;
@@ -72,13 +77,18 @@ void Enemy::move() {
     }
 
     if (map.blockedForEnemy(x,y)) {
+      if (map.get(x,y) == Map::MONSTER)
+	hit = true;
       x = x_old;
       y = y_old;
     }
 
+    map.set(x_old,y_old,Map::EMPTY);
     if (x == player_x && y == player_y) {
       status.inc_hits();
       hit = true;
+    } else {
+      map.set(x,y,Map::MONSTER);
     }
 
     sem_player.v();

@@ -85,7 +85,7 @@ bool Map::notBlocked(int x, int y) {
 
 bool Map::blockedForEnemy(int x, int y) {
   if (0 <= x && x <= 79 && 0 <= y && y <= 24) {
-    if (typemap[x][y] != EMPTY)
+    if (typemap[x][y] == TREASURE || typemap[x][y] == WALL || typemap[x][y] == PORTAL)
       return true;
     else
       return false;

@@ -27,9 +27,7 @@ private:
     int x, y;
 
 public:
-    Enemy(void *tos, int x, int y) : Thread(tos), x(x), y(y) {
-      kout.show(x, y, 233, 0x04);
-    }
+    Enemy(void *tos, int x, int y);
 
     void action ();
     
