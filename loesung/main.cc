@@ -13,10 +13,6 @@
 #include "user/kroz.h"
 
 
-#include "object/chain.h"
-#include "meeting/bell.h"
-#include "meeting/buzzer.h"
-
 CGA_Stream kout;
 PIC pic;
 CPU cpu;
@@ -31,27 +27,6 @@ Bellringer bellringer;
 // Zusammen mit dem Testprolog der Watch
 // wird so etwa jede Sekunde eine Ausgabe gemacht.
 Watch watch(1000);
-
-// Zum Testen ohne weitere Prozesse                                                                                                                                                                                                         
-// Kann später weggeworfen werden                                                                                                                                                                                                           
-void bellringer_test() {
-  Buzzer b1, b2, b3, b4, b5;
-
-  bellringer.job(&b1,100); // Leere Liste
-  bellringer.job(&b2,50); // kleinstes Element
-  bellringer.job(&b3,75); // mittleres Element
-  bellringer.job(&b4,150); // größtes Element
-  bellringer.job(&b5,125); // mittleres Element
-  // erwartete Ausgabe "50\n25\n25\n25\n25"
-  
-  Chain* run = bellringer.first();
-  while (run) {
-    kout << static_cast<Bell*>(run)->wait() << endl;
-    run = run->next;
-  }
-
-}
-
 
 int main()
 {
@@ -70,6 +45,9 @@ int main()
 
   static char stack_app[4096];
   Kroz kroz(stack_app + sizeof(stack_app));
+
+//  static char stack_a[4096];
+//  Print_Rep a(stack_a + sizeof(stack_a),'a');
 
   guard.enter();
   organizer.go(kroz);
