@@ -50,6 +50,9 @@ Enemy &createMonster(int i) {
 
 void Kroz::action ()
  {
+  printWelcomeScreen();
+  printInstructionsScreen();
+  
   map.print();
   status.print();
 
@@ -113,13 +116,68 @@ void Kroz::printWelcomeScreen() {
     kout.setpos(9,y+16);
     kout.print(subtitle[y],62,0x0F);
   }
-  Guarded_Buzzer buzzer;
-  buzzer.set(200);
-  buzzer.sleep();
+  
+  kout.setpos(28,22);
+  kout.print("PRESS ENTER TO CONTINUE",23,0xE);
+  kout.flush();
+  kout.setpos(90,30);
+  Key k = keyboard.getkey();
+  while (k.scancode() != Key::scan::enter) {
+    k = keyboard.getkey();
+  }
+  kout.clear();
 }
 
 void Kroz::printInstructionsScreen() {
   
+  kout.setpos(35,2);
+  kout << "Anleitung" << endl;
+  
+  int x = 14;
+  
+  kout.setpos(x,6);
+  kout << "*";
+  kout.flush();
+  kout.show(x+2, 6, 234, 0x02);
+  kout.setpos(x+4,6);
+  kout << "stellt die Spielfigur dar" << endl;
+  
+  kout.setpos(x,8);
+  kout << "* Sammle alle Muenzen ";
+  kout.flush();
+  kout.show(x+22, 8, 48, 0x0E);
+  
+  kout.setpos(x,10);
+  kout << "* Wenn du alle hast, lauf zum Portal ";
+  kout.flush();
+  kout.show(x+37,10, 79, 0x01);
+
+  kout.setpos(x,12);
+  kout << "* Lass dich dabei nicht von den Monstern   fressen ";
+  kout.flush();
+  kout.show(x+41,12, 148, 0x04);
+  
+  kout.setpos(x,14);
+  kout << "* Die Waende   sind durch das Schwert ('w') zerstoerbar" << endl;
+  kout.show(x+13,14,176, 0x06);
+  
+  kout.setpos(x,16);
+  kout << "* ...wenn sie nicht zuvor von den Monstern verspeist wurden" << endl;
+  
+  kout.setpos(x,18);
+  kout << "* Ein Druck auf 'r startet das Spiel neu" << endl;
+ 
+
+  
+  kout.setpos(28,22);
+  kout.print("PRESS ENTER TO CONTINUE",23,0xE);
+  kout.flush();
+  kout.setpos(90,30);
+  Key k = keyboard.getkey();
+  while (k.scancode() != Key::scan::enter) {
+    k = keyboard.getkey();
+  }
+  kout.clear();
 }
 
 void Kroz::printVictoryScreen() {
@@ -130,10 +188,15 @@ void Kroz::printVictoryScreen() {
     kout.setpos(20,y+5);
     kout.print(score[y],42,0x04);
   }
-  //kout.setpos(10,20);
-  Guarded_Buzzer buzzer;
-  buzzer.set(200);
-  buzzer.sleep();
+  kout.setpos(29,22);
+  kout.print("PRESS ENTER TO RESTART",22,0xE);
+  kout.flush();
+  kout.setpos(90,30);
+  Key k = keyboard.getkey();
+  while (k.scancode() != Key::scan::enter) {
+    k = keyboard.getkey();
+  }
+  kout.clear();
 }
 
 void Kroz::transform(char *text, char c1, char c2, int dim) {
