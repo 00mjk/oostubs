@@ -131,7 +131,7 @@ while (1) {
   wait.set(200); // Monstern Zeit zum sterben geben.
   wait.sleep();
   if (player_handler.has_won())
-    nummonsters += 15;
+    nummonsters += 10;
  }
 }
 //Soll das Spiel erst beginnen lasssen, wenn der Spieler
