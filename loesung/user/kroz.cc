@@ -62,6 +62,7 @@ while (1) {
   map.print();
   status.init();
   status.print();
+  player_handler.init();
 
   sem_player.p();
   for (int i = 0; i != NUM_MONSTER; ++i)
@@ -89,6 +90,17 @@ while (1) {
     sem_display.v();
 
     player_handler.movement(k);
+
+    if (player_handler.has_won()) {
+      sem_display.p();
+      for (int i = 0; i < 5; ++i) {
+        kout.setpos(30, 10+i);
+        kout.print("WINNER!", 6, 0x0f-i);
+      }
+      sem_display.v();
+      keyboard.getkey(); // Auf tastatur warten.
+      break;
+    }
 
     if (status.get_hits() < 0) {
       sem_display.p();
