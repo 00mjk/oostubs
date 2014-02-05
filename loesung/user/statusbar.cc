@@ -7,15 +7,15 @@ extern CGA_Stream kout;
 extern Guarded_Semaphore sem_display;
 extern Map map;
 
-Statusbar::Statusbar() {
+void Statusbar::init() {
   treasure = 0;
-  hits = 0;
+  hits = 4;
 }
 
 void Statusbar::print() {
   sem_display.p();
   kout.setpos(0,0);
-  kout << "Treasure: " << treasure << " Hits taken: " << hits;
+  kout << "Treasure: " << treasure << " Lives left: " << hits;
   kout.flush();
   sem_display.v();
 }
@@ -30,7 +30,7 @@ void Statusbar::inc_treasure() {
 }
 
 void Statusbar::inc_hits() {
-  hits++;
+  hits--;
   print();
 }
 

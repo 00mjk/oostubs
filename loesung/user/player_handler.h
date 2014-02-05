@@ -22,11 +22,15 @@ extern CGA_Stream kout;
 
 class Player_Handler {
  private:
+  bool won;
   
  public:   
+  void init() { won = false; }
   enum { UP, DOWN, LEFT, RIGHT };
   void movement(Key key);
   void showWhip(int x, int y, int whipDirection);
+
+  bool has_won() { return won; }
 };
 
 #endif

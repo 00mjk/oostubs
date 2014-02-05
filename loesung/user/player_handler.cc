@@ -49,7 +49,7 @@ void Player_Handler::movement(Key key) {
     break;
   case Map::PORTAL:
     // Partie beenden
-    
+    won = true;
     break;
   }
   sem_player.v();

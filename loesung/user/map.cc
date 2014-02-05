@@ -8,7 +8,14 @@ extern CGA_Stream kout;
 extern Guarded_Semaphore sem_display;
 extern Random r;
 
-Map::Map() : numTreasure(0), done(false) {
+void Map::init() {
+  numTreasure = 0;
+  done = false;
+
+  for (int i = 0; i < 80; i++)
+    for (int j = 0; j < 25; j++)
+      typemap[i][j] = EMPTY;
+
   // den äußeren Rand und die Statusleiste mit Wänden schützen
   for (int i = 0; i < 80; i++) {
     typemap[i][0] = WALL;
@@ -36,8 +43,6 @@ Map::Map() : numTreasure(0), done(false) {
   typemap[20][15] = WALL;
   typemap[20][16] = WALL;
   typemap[20][17] = WALL;
-
-  typemap[40][40] = PORTAL;
 
   for (int i = 0; i != 250; ++i) {
     int x = r.number() % 78 + 1;

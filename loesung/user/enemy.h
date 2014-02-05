@@ -25,11 +25,13 @@ private:
     Enemy (const Enemy &copy); // Verhindere Kopieren
 
     int x, y;
+    bool hit;
 
 public:
     Enemy(void *tos, int x, int y);
 
     void action ();
+    void hit_me() { hit = true; }
     
     void move();
  };
