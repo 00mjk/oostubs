@@ -44,8 +44,6 @@ void Map::init() {
   typemap[20][16] = WALL;
   typemap[20][17] = WALL;
 
-  typemap[40][40] = PORTAL;
-
   for (int i = 0; i != 250; ++i) {
     int x = r.number() % 78 + 1;
     int y = r.number() % 23 + 1;

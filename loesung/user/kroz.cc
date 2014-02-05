@@ -39,13 +39,17 @@ Player_Handler player_handler;
 Map map;
 Statusbar status;
 
-static char monsterbuffer[NUM_MONSTER+1][4096];
-Enemy &createMonster(int i) {
-  int x, y;
+static void getRandomPos(int &x, int &y) {
   do {
     x = r.number() % 78 + 1;
     y = r.number() % 23 + 1;
   } while (map.get(x, y) != Map::EMPTY);
+}
+
+static char monsterbuffer[NUM_MONSTER+1][4096];
+Enemy &createMonster(int i) {
+  int x, y;
+  getRandomPos(x, y);
   Enemy *m = new (monsterbuffer[i]) Enemy(monsterbuffer[i] + 4096, x, y);
   return *m;
 }
@@ -55,10 +59,12 @@ void Kroz::action ()
 while (1) {
   kout.clear();
 
-  player_x = 10;
-  player_y = 10;
+  getRandomPos(player_x, player_y);
 
   map.init();
+  int portal_x, portal_y;
+  getRandomPos(portal_x, portal_y);
+  map.set(portal_x, portal_y, Map::PORTAL);
   map.print();
   status.init();
   status.print();
