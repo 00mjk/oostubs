@@ -14,6 +14,7 @@
 #include "machine/io_port.h"
 #include <new>
 #include "screen.h"
+#include "syscall/thread.h"
 
 extern CGA_Stream kout;
 extern Guarded_Organizer organizer;
@@ -52,10 +53,19 @@ Enemy &createMonster(int i) {
   return *m;
 }
 
+struct IdleProcess : public Thread {
+  IdleProcess(void *stack) : Thread(stack) {}
+  void action() { while(1) { organizer.resume(); } }
+};
+
 void Kroz::action ()
  {
   printWelcomeScreen();
   printInstructionsScreen();
+
+  static char ipstack[1024];
+  IdleProcess ip(ipstack);
+  organizer.ready(ip);
   
   int numwalls = 250;
   int nummonsters = 30;
