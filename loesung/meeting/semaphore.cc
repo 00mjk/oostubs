@@ -17,7 +17,7 @@ void Semaphore::p() {
   if (counter > 0) {
     --counter;
   } else {
-    organizer.Organizer::block(*static_cast<Customer *>(organizer.active()),
+    organizer.Organizer::block(*static_cast<Customer *>(organizer.Organizer::active()),
                                *this);
   }
 }

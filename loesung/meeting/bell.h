@@ -31,7 +31,7 @@ public:
     // Dekremementiert den Zähler.
     void tick () { --counter; }
     // Liefert true, wenn die Zeit abgelaufen ist.
-    bool run_down() { return counter == 0; }
+    bool run_down() { return counter <= 0; }
     // Wird vom Glöckner aufgerufen, wenn es an der Zeit ist.
     virtual void ring () = 0;
 };

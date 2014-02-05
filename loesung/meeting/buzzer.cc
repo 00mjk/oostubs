@@ -35,8 +35,11 @@ void Buzzer::set(int ms) {
 
 void Buzzer::sleep() {
   if (wait() > 0) {
-    Customer *customer = static_cast<Customer *>(organizer.active());
-    enqueue(customer);
+    Customer *customer = static_cast<Customer *>(organizer.Organizer::active());
+    if (!customer) {
+      kout << "PANIC: Buzzer blockiert NULL!" << endl;
+      while (1) {}
+    }
     organizer.Organizer::block(*customer, *this);
   }
 }

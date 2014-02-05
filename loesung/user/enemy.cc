@@ -40,7 +40,7 @@ static int compare(int a, int b) {
 }
 
 static int sleeptime() {
-  return 20 - (r.number() % 20) - 5;
+  return 10 - ((r.number() % 10) - 5);
 }
 
 Enemy::Enemy(void *tos, int x, int y) : Thread(tos), x(x), y(y) {

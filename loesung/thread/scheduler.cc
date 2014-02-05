@@ -43,6 +43,10 @@ void Scheduler::kill(Entrant &that) {
 
 void Scheduler::resume() {
   Entrant *active = static_cast<Entrant *>(Dispatcher::active());
+  if (!active) {
+    kout << "PANIC: NULL scheduled!" << endl;
+    while (1) {}
+  }
   ready_list.enqueue(active);
 
   schedule();
