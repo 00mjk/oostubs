@@ -15,7 +15,7 @@ void Statusbar::init() {
 void Statusbar::print() {
   sem_display.p();
   kout.setpos(0,0);
-  kout << "Treasure: " << treasure << " Lives left: " << hits;
+  kout << "Treasure: " << treasure << " Lives left: " << (hits < 0 ? 0 : hits);
   kout.flush();
   sem_display.v();
 }
