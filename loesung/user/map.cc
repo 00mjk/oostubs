@@ -34,7 +34,8 @@ void Map::init(int numwalls) {
     if (get(x, y) == EMPTY)
       set(x, y, TREASURE);
   }
-
+  typemap[20][8] = WALL;
+  typemap[20][9] = WALL;
   typemap[20][10] = WALL;
   typemap[20][11] = WALL;
   typemap[20][12] = WALL;
@@ -42,7 +43,17 @@ void Map::init(int numwalls) {
   typemap[20][14] = WALL;
   typemap[20][15] = WALL;
   typemap[20][16] = WALL;
-  typemap[20][17] = WALL;
+
+  
+  typemap[60][8] = WALL;
+  typemap[60][9] = WALL;
+  typemap[60][10] = WALL;
+  typemap[60][11] = WALL;
+  typemap[60][12] = WALL;
+  typemap[60][13] = WALL;
+  typemap[60][14] = WALL;
+  typemap[60][15] = WALL;
+  typemap[60][16] = WALL;
 
   for (int i = 0; i != numwalls; ++i) {
     int x = r.number() % 78 + 1;
