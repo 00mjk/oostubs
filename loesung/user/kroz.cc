@@ -89,6 +89,16 @@ while (1) {
     sem_display.v();
 
     player_handler.movement(k);
+
+    if (status.get_hits() >= 5) {
+      sem_display.p();
+      for (int i = 0; i < 5; ++i) {
+        kout.setpos(30, 10+i);
+        kout.print("GAME OVER!", 10, 0x0f-i);
+      }
+      sem_display.v();
+      break;
+    }
   }
   sem_player.p();
   for (int i = 0; i != NUM_MONSTER; ++i) {
