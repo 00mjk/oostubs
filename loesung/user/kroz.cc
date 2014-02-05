@@ -39,7 +39,12 @@ Statusbar status;
 
 static char monsterbuffer[50][4096];
 Enemy &createMonster(int i) {
-  Enemy *m = new (monsterbuffer[i]) Enemy(monsterbuffer[i] + 4096, r.number() % 78 + 1, r.number() % 23 + 1);
+  int x, y;
+  do {
+    x = r.number() % 78 + 1;
+    y = r.number() % 23 + 1;
+  } while (map.get(x, y) != Map::EMPTY);
+  Enemy *m = new (monsterbuffer[i]) Enemy(monsterbuffer[i] + 4096, x, y);
   return *m;
 }
 
