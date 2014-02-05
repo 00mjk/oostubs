@@ -76,7 +76,7 @@ void Map::print() {
 	kout.show(x,y, 48, 0x0E);
 	break;
       case PORTAL:
-	kout.show(x,y, 79, 0x01);
+	kout.show(x,y, 79, 0x09);
 	break;
       case WALL_DESTRUCTIBLE:
 	kout.show(x,y, 176, 0x06);

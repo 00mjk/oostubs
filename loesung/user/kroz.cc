@@ -200,7 +200,7 @@ void Kroz::printInstructionsScreen() {
   kout.setpos(x,10);
   kout << "* Wenn du alle hast, lauf zum Portal ";
   kout.flush();
-  kout.show(x+37,10, 79, 0x01);
+  kout.show(x+37,10, 79, 0x09);
 
   kout.setpos(x,12);
   kout << "* Lass dich dabei nicht von den Monstern   fressen ";
