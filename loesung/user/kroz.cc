@@ -15,8 +15,6 @@
 #include <new>
 #include "screen.h"
 
-#define NUM_MONSTER 30
-
 extern CGA_Stream kout;
 extern Guarded_Organizer organizer;
 extern Guarded_Keyboard keyboard;
@@ -46,26 +44,27 @@ static void getRandomPos(int &x, int &y) {
   } while (map.get(x, y) != Map::EMPTY);
 }
 
-static char monsterbuffer[NUM_MONSTER+1][4096];
+static char monsterbuffer[250][2048];
 Enemy &createMonster(int i) {
   int x, y;
   getRandomPos(x, y);
-  Enemy *m = new (monsterbuffer[i]) Enemy(monsterbuffer[i] + 4096, x, y);
+  Enemy *m = new (monsterbuffer[i]) Enemy(monsterbuffer[i] + 2048, x, y);
   return *m;
 }
 
 void Kroz::action ()
  {
-
   printWelcomeScreen();
   printInstructionsScreen();
   
+  int numwalls = 250;
+  int nummonsters = 30;
 while (1) {
   kout.clear();
 
   getRandomPos(player_x, player_y);
 
-  map.init();
+  map.init(numwalls);
   int portal_x, portal_y;
   getRandomPos(portal_x, portal_y);
   map.set(portal_x, portal_y, Map::PORTAL);
@@ -75,7 +74,7 @@ while (1) {
   player_handler.init();
 
   sem_player.p();
-  for (int i = 0; i != NUM_MONSTER; ++i)
+  for (int i = 0; i != nummonsters; ++i)
 	  organizer.ready(createMonster(i));
   sem_player.v();
 
@@ -123,7 +122,7 @@ while (1) {
     }
   }
   sem_player.p();
-  for (int i = 0; i != NUM_MONSTER; ++i) {
+  for (int i = 0; i != nummonsters; ++i) {
     Enemy *m = (Enemy*)monsterbuffer[i];
     m->hit_me();
   }
@@ -131,6 +130,8 @@ while (1) {
   Guarded_Buzzer wait;
   wait.set(200); // Monstern Zeit zum sterben geben.
   wait.sleep();
+  if (player_handler.has_won())
+    nummonsters += 15;
  }
 }
 //Soll das Spiel erst beginnen lasssen, wenn der Spieler

@@ -20,7 +20,7 @@ class Map {
 
  public:
  
-  void init();
+  void init(int nummwalls);
 
   enum type { EMPTY, TREASURE, WALL, PORTAL, MONSTER, WALL_DESTRUCTIBLE };
 

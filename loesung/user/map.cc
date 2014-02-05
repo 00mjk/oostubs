@@ -8,7 +8,7 @@ extern CGA_Stream kout;
 extern Guarded_Semaphore sem_display;
 extern Random r;
 
-void Map::init() {
+void Map::init(int numwalls) {
   numTreasure = 0;
   done = false;
 
@@ -44,7 +44,7 @@ void Map::init() {
   typemap[20][16] = WALL;
   typemap[20][17] = WALL;
 
-  for (int i = 0; i != 250; ++i) {
+  for (int i = 0; i != numwalls; ++i) {
     int x = r.number() % 78 + 1;
     int y = r.number() % 23 + 1;
 
