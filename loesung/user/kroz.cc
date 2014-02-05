@@ -45,7 +45,6 @@ Enemy &createMonster(int i) {
 
 void Kroz::action ()
  {
-   printWelcomeScreen();
   map.print();
   status.print();
 
@@ -119,7 +118,17 @@ void Kroz::printInstructionsScreen() {
 }
 
 void Kroz::printVictoryScreen() {
-
+  for (int y = 0; y < 6; y++) {
+    transform(score[y],223,205,186,201,200,187,188,42);
+  }
+  for (int y = 0; y < 6; y++) {
+    kout.setpos(20,y+5);
+    kout.print(score[y],42,0x04);
+  }
+  //kout.setpos(10,20);
+  Guarded_Buzzer buzzer;
+  buzzer.set(200);
+  buzzer.sleep();
 }
 
 void Kroz::transform(char *text, char c1, char c2, int dim) {
@@ -128,5 +137,33 @@ void Kroz::transform(char *text, char c1, char c2, int dim) {
       text[i] = c1;
     else if (text[i] == '0')
       text[i] = c2;
+  }
+}
+
+void Kroz::transform(char *text, char c1, char c2, char c3, char c4, char c5, char c6, char c7, int dim) {
+  for (int i = 0; i < dim; i++) {
+    switch (text[i]) {
+      case '1':
+	text[i] = c1;
+	break;
+      case '2':
+	text[i] = c2;
+	break;
+      case '3':
+	text[i] = c3;
+	break;
+      case '4':
+	text[i] = c4;
+	break;
+      case '5':
+	text[i] = c5;
+	break;
+      case '6':
+	text[i] = c6;
+	break;
+      case '7':
+	text[i] = c7;
+	break;
+    }
   }
 }

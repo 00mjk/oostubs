@@ -44,7 +44,7 @@ class Kroz : public Thread {
 
   void transform(char *text, char c1, char c2, int dim);
 
-
+  void transform(char *text, char c1, char c2, char c3, char c4, char c5, char c6, char c7, int dim);
 };
 
 #endif
