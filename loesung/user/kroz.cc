@@ -90,7 +90,7 @@ while (1) {
 
     player_handler.movement(k);
 
-    if (status.get_hits() >= 5) {
+    if (status.get_hits() < 0) {
       sem_display.p();
       for (int i = 0; i < 5; ++i) {
         kout.setpos(30, 10+i);
