@@ -30,10 +30,10 @@ void Player_Handler::movement(Key key) {
     showWhip(player_x, player_y-1,UP);
     slay(player_x-1, player_y);
     showWhip(player_x-1, player_y,LEFT);
-    slay(player_x+1, player_y);
-    showWhip(player_x+1, player_y,RIGHT);
     slay(player_x, player_y+1);
     showWhip(player_x, player_y+1,DOWN);
+    slay(player_x+1, player_y);
+    showWhip(player_x+1, player_y,RIGHT);
   }
 
   // Debugausgaben
