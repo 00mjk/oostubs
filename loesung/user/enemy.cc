@@ -43,7 +43,7 @@ static int sleeptime() {
   return 10 - ((r.number() % 10) - 5);
 }
 
-Enemy::Enemy(void *tos, int x, int y) : Thread(tos), x(x), y(y) {
+Enemy::Enemy(void *tos, int x, int y) : Thread(tos), x(x), y(y), hit(false) {
   kout.show(x, y, 233, 0x04);
   map.set(x,y,Map::MONSTER);
 }
@@ -75,7 +75,7 @@ void Enemy::move() {
     sem_player.p();
 
     int x_old = x, y_old = y;
-    bool hit = false, wall = false;
+    bool wall = false;
 
     if (abs(x - player_x) < 15 && abs(y - player_y) < 15) {
       if ((x+y) % 2 == 0) {

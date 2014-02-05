@@ -15,6 +15,8 @@
 #include <new>
 #include "screen.h"
 
+#define NUM_MONSTER 30
+
 extern CGA_Stream kout;
 extern Guarded_Organizer organizer;
 extern Guarded_Keyboard keyboard;
@@ -31,13 +33,13 @@ static int getRTC() {
 
 Random r(getRTC());
 
-int player_x = 10, player_y = 10;
+int player_x, player_y;
 Guarded_Semaphore sem_player(1);
 Player_Handler player_handler;
 Map map;
 Statusbar status;
 
-static char monsterbuffer[50][4096];
+static char monsterbuffer[NUM_MONSTER+1][4096];
 Enemy &createMonster(int i) {
   int x, y;
   do {
@@ -50,11 +52,19 @@ Enemy &createMonster(int i) {
 
 void Kroz::action ()
  {
+while (1) {
+  kout.clear();
+
+  player_x = 10;
+  player_y = 10;
+
+  map.init();
   map.print();
+  status.init();
   status.print();
 
   sem_player.p();
-  for (int i = 0; i != 30; ++i)
+  for (int i = 0; i != NUM_MONSTER; ++i)
 	  organizer.ready(createMonster(i));
   sem_player.v();
 
@@ -66,8 +76,11 @@ void Kroz::action ()
     sem_display.v();
 
     Key k = keyboard.getkey();
-    sem_display.p();
 
+    if (k.ascii() == 'r')
+      break;
+
+    sem_display.p();
     if (map.get(player_x,player_y) == Map::MONSTER)
       kout.show(player_x,player_y, 148,0x04);
     else
@@ -77,8 +90,17 @@ void Kroz::action ()
 
     player_handler.movement(k);
   }
+  sem_player.p();
+  for (int i = 0; i != NUM_MONSTER; ++i) {
+    Enemy *m = (Enemy*)monsterbuffer[i];
+    m->hit_me();
+  }
+  sem_player.v();
+  Guarded_Buzzer wait;
+  wait.set(200); // Monstern Zeit zum sterben geben.
+  wait.sleep();
  }
-
+}
 //Soll das Spiel erst beginnen lasssen, wenn der Spieler
 //Zeit hatte sich das Level anzusehen.
 void Kroz::printReadyScreen() {

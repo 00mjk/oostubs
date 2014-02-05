@@ -7,7 +7,7 @@ extern CGA_Stream kout;
 extern Guarded_Semaphore sem_display;
 extern Map map;
 
-Statusbar::Statusbar() {
+void Statusbar::init() {
   treasure = 0;
   hits = 0;
 }

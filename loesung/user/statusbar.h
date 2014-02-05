@@ -17,7 +17,7 @@ class Statusbar {
   int treasure;
   int hits;
  public:
-  Statusbar();
+  void init();
   void print();
   void inc_treasure();
   void inc_hits();
