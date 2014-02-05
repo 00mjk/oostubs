@@ -139,16 +139,14 @@ void Kroz::printReadyScreen() {
   sem_display.p();
   kout.setpos(40,0);
   kout.show(player_x, player_y, 234, 0x02);
-  kout.print("Taste 's' zum Starten druecken.",30,0x04);
-  kout.flush();
+  kout.setpos(27,24);
+  kout.print("ENTER zum Starten druecken",26,0x0E);
   Key k = keyboard.getkey();
-  while (k.ascii() != 's') {
-    if(k.ascii() != 0)
-       kout << k.ascii() << endl;
+  while (k.scancode() != Key::scan::enter) {
     k = keyboard.getkey();
   }
-  for (int x = 40; x < 70; x++) {
-    kout.show(x,0, 178, 0x0f);
+  for (int x = 27; x < 54; x++) {
+    kout.show(x,24, 178, 0x0f);
   }
 
   sem_display.v();
@@ -187,7 +185,7 @@ void Kroz::printInstructionsScreen() {
   int x = 14;
   
   kout.setpos(x,6);
-  kout << "*";
+  kout << "*  ";
   kout.flush();
   kout.show(x+2, 6, 234, 0x02);
   kout.setpos(x+4,6);

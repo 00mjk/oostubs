@@ -35,7 +35,8 @@ void Statusbar::inc_hits() {
 }
 
 void Statusbar::printPortalMessage() {
-  kout.setpos(40,0);
-  kout.print("Auf zum Portal!",14,0x04);
+  kout.setpos(33,24);
+  kout.print("Auf zum Portal!",14,0x0E);
   kout.flush();
+  kout.setpos(90,30);
 }
